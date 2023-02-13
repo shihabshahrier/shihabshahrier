@@ -1,7 +1,7 @@
 # Shihab Shahriar ... 
 
 <p align="center">
-  <pre>
+  <pre align="center">
   o      o
            o
         _________
