@@ -1,7 +1,17 @@
-# I am Shihab Shahriar... 
+# Shihab Shahriar ... 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/shihabshahrier/thinking-developer-vector/master/thinking-developer.svg" width="200"/>
+  <pre>
+  o      o
+           o
+        _________
+  o      |.-----.|
+        ||x . x||
+        ||_/ \_||
+         \`/  /\`
+   o      /____\
+        (Light Bulb)
+  </pre>
 </p>
 
 <h3 align="center">Computer Science Student at Brac University</h3>
