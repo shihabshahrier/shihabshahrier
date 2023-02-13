@@ -1,7 +1,7 @@
-# Shihab Shahriar 
+# I am Shihab Shahriar... 
 
 <p align="center">
-  <img src="https://cdn.iconscout.com/icon/free/png-512/coding-13-1175110.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/shihabshahrier/thinking-developer-vector/master/thinking-developer.svg" width="200"/>
 </p>
 
 <h3 align="center">Computer Science Student at Brac University</h3>
@@ -32,7 +32,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields/badge/-Swift-blue?style=flat-square&logo=Swift&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Swift-blue?style=flat-square&logo=Swift&logoColor=white" />
   <img src="https://img.shields.io/badge/-Swift%20UI-blue?style=flat-square&logo=Swift%20UI&logoColor=white" />
   <img src="https://img.shields.io/badge/-MERN%20Stack-blue?style=flat-square&logo=MERN&logoColor=white" />
 </p>
