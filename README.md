@@ -1,40 +1,55 @@
-Shihab Shahriar
+# Shihab Shahriar 
 
 <p align="center">
-  <img src="https://avatars1.githubusercontent.com/u/56836427?s=460&u=4488fefd53f09aecb0cf7e0a2b13c01a86da0f9b&v=4" width="200"/>
+  <img src="https://cdn.iconscout.com/icon/free/png-512/coding-13-1175110.png" width="200"/>
 </p>
-:mortar_board: Computer Science Student at Brac University
 
-I am a computer science student who is passionate about software development and constantly seeking to improve my skills and knowledge. My primary area of expertise is in programming languages such as :
+<h3 align="center">Computer Science Student at Brac University</h3>
 
- Python
- C
- C++
- Dart
- Brainfuck
-I also have experience working with web development frameworks such as :
+<p align="center">
+  <img src="https://img.shields.io/badge/-Python-brightgreen?style=flat-square&logo=Python&logoColor=white" />
+  <img src="https://img.shields.io/badge/-C-brightgreen?style=flat-square&logo=C&logoColor=white" />
+  <img src="https://img.shields.io/badge/-C++-brightgreen?style=flat-square&logo=C%2B%2B&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Dart-brightgreen?style=flat-square&logo=Dart&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Brainfuck-brightgreen?style=flat-square&logo=Brainfuck&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Django-brightgreen?style=flat-square&logo=Django&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Flask-brightgreen?style=flat-square&logo=Flask&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Flutter-brightgreen?style=flat-square&logo=Flutter&logoColor=white" />
+</p>
 
- Django
- Flask
- Flutter
-Aside from my coursework, I enjoy participating in competitive programming challenges to test my abilities and learn new algorithms and problem-solving techniques. My main interests are in :
+<p align="center">
+  I am a computer science student who is passionate about software development and constantly seeking to improve my skills and knowledge. My primary area of expertise is in programming languages such as Python, C, C++, Dart, and Brainfuck. I also have experience working with web development frameworks such as Django, Flask, and Flutter.
+</p>
 
- Machine Learning
- Artificial Intelligence
- Data Science
-and I am always eager to learn about new technologies and advancements in these fields.
+<p align="center">
+  <img src="https://img.shields.io/badge/-Machine%20Learning-orange?style=flat-square&logo=Machine%20Learning&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Artificial%20Intelligence-orange?style=flat-square&logo=Artificial%20Intelligence&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Data%20Science-orange?style=flat-square&logo=Data%20Science&logoColor=white" />
+</p>
 
-For 2023, my goal is to expand my skillset by learning :
+<p align="center">
+  Aside from my coursework, I enjoy participating in competitive programming challenges to test my abilities and learn new algorithms and problem-solving techniques. My main interests are in Machine Learning, Artificial Intelligence, and Data Science, and I am always eager to learn about new technologies and advancements in these fields.
+</p>
 
- Swift
- Swift UI
- MERN stack
-I am excited to continue my journey as a software developer and contribute to the tech community.
+<p align="center">
+  <img src="https://img.shields/badge/-Swift-blue?style=flat-square&logo=Swift&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Swift%20UI-blue?style=flat-square&logo=Swift%20UI&logoColor=white" />
+  <img src="https://img.shields.io/badge/-MERN%20Stack-blue?style=flat-square&logo=MERN&logoColor=white" />
+</p>
 
-Connect with me:
+<p align="center">
+  My goal for 2023 is to further expand my knowledge and skills by learning Swift, Swift UI, and the MERN stack.
+</p>
 
-LinkedIn: Shihab Shahriar
-GitHub: shihabshahrier
+<p align="center">
+  <a href="https://github.com/shihabshahrier" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-%2312100E.svg?&style=flat-square&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  <a href="https://linkedin.com/in/shihabshahrier/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+</p>
 
-
-Regenerate response
+<p align="center">
+  Check out my projects and feel free to connect with me!
+</p>
