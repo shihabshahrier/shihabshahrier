@@ -63,3 +63,9 @@
 <p align="center">
   Check out my projects and feel free to connect with me!
 </p>
+
+<p align="center">
+  <a href="mailto:shahrier2k@gmail.com" target="_blank">
+    <img src="https://img.shields.io/badge/Email-%23D14836.svg?&style=flat-square&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+</p>
