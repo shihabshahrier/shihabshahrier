@@ -1,4 +1,25 @@
-# Shihab Shahriar ... 
+<p align="center">
+  <b>
+    Hello, this is Shihab Shahriar
+    <br>
+    <span id="dots">.</span><span id="dots">.</span><span id="dots">.</span>
+  </b>
+</p>
+
+<style>
+  #dots {
+    animation: dots 1s ease-in-out infinite;
+  }
+  @keyframes dots {
+    0%, 20% {
+      color: transparent;
+    }
+    10% {
+      color: black;
+    }
+  }
+</style>
+
 
 <p align="center">
   <pre align="center">
