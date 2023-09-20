@@ -69,3 +69,4 @@
     <img src="https://img.shields.io/badge/Email-%23D14836.svg?&style=flat-square&logo=gmail&logoColor=white" alt="Email" />
   </a>
 </p>
+![Profile Views](https://img.shields.io/badge/dynamic/json?color=blue&label=Profile%20Views&query=%24.views&url=https%3A%2F%2Fapi.github.com%2Frepos%2F%3Cshihabshahrier%3E%2F%3Crepo_name%3E)
