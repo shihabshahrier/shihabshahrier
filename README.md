@@ -1,5 +1,4 @@
 # Shihab Shahriar ... 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=shihabshahrier&label=Profile%20views&color=0e75b6&style=flat" alt="shihabshahrier"/> </p>
 <p align="center">
   <pre align="center">
   o      o
