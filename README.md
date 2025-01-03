@@ -86,10 +86,25 @@
 
 ---
 
+<h2 align="center">🎉 Fun Facts</h2>
+<p align="center">
+  - ♟️ I love playing chess and billiards.
+  - 🍜 I can cook some delicious Chinese cuisines.
+</p>
+
+---
+
 <h2 align="center">📊 GitHub Stats</h2>
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=shihabshahrier&show_icons=true&theme=radical" alt="GitHub Stats" />
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=shihabshahrier&layout=compact&theme=radical" alt="Top Languages" />
+</p>
+
+---
+
+<h2 align="center">⭐ Call to Action</h2>
+<p align="center">
+  If you enjoy my projects, please give them a ⭐ on GitHub or reach out for collaboration opportunities!
 </p>
 
 ---
