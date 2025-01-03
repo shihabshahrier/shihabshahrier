@@ -1,4 +1,4 @@
-# Shihab Shahriar Antor
+<h1 align="center">Shihab Shahriar Antor</h1>
 
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Roboto&color=%2300BFFF&center=true&vCenter=true&lines=Computer+Science+Graduate;AI+Engineer+%7C+ML+Researcher;Passionate+Developer+%7C+Tech+Explorer" />
