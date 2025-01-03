@@ -86,6 +86,13 @@
 
 ---
 
+<h2 align="center">📈 Contribution Graph</h2>
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=shihabshahrier&theme=radical" alt="Contribution Graph" />
+</p>
+
+---
+
 <h2 align="center">📊 GitHub Stats</h2>
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=shihabshahrier&show_icons=true&theme=radical" alt="GitHub Stats" />
