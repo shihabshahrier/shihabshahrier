@@ -9,7 +9,7 @@
 <h2 align="center">🚀 About Me</h2>
 
 <p align="center">
-  I’m Shihab Shahriar Antor — a Computer Science graduate from BRAC University, AI engineer, and full-stack developer.
+  I’m Shihab Shahriar Antor — Officially a BRACU CS Escape Artist, AI/ML engineer, and full-stack dev.
 </p>
 
 <p align="center">
