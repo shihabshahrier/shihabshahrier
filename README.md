@@ -9,27 +9,31 @@
 <h2 align="center">🚀 About Me</h2>
 
 <p align="center">
-  I'm Shihab Shahriar Antor, a Computer Science graduate from BRAC University and a tech entrepreneur passionate about blending AI with real-world applications.
+  I’m Shihab Shahriar Antor — a Computer Science graduate from BRAC University, AI engineer, and full-stack developer.
 </p>
 
 <p align="center">
-  🎯 I’m the founder of <strong>Shahriar Labs</strong>, an AI agent startup behind <strong>Bikroy Buddy</strong> — a smart commerce assistant for classifieds and marketplace automation in Bangladesh.
+  🔹 Founder of <strong>Shahriar Labs</strong> — building <strong>Bikroy Buddy</strong>, an AI commerce agent for classifieds and marketplaces.
 </p>
 
 <p align="center">
-  🎨 I also founded <strong>ComiKola</strong>, a Bengali webtoon platform that empowers independent artists and storytellers while producing original webtoon series under <em>ComiKola Originals</em>.
+  🔹 Creator of <strong>ComiKola</strong>, a Bengali webtoon platform for indie artists, producing original stories through <em>ComiKola Originals</em>.
 </p>
 
 <p align="center">
-  🪐 My academic research focused on <strong>exoplanet and star detection</strong> using <strong>contrastive learning</strong>. I implemented advanced models like <strong>SimCLR</strong>, <strong>Siamese Networks</strong>, <strong>YOLOv6/v7</strong>, and pretrained architectures including <strong>DenseNet</strong>, <strong>ResNet50</strong>, and custom CNNs — achieving up to <strong>92% accuracy</strong> on astronomical datasets.
+  🔹 Conducted research on <strong>exoplanet detection</strong> using contrastive learning (SimCLR, Siamese Networks, YOLOv6/v7, DenseNet, ResNet50, CNNs) and achieved <strong>92% accuracy</strong> on astronomical data.
 </p>
 
 <p align="center">
-  As a full-stack developer and machine learning researcher, I’m passionate about solving meaningful problems, building smart systems, and continuously learning in the fast-evolving world of tech.
+  🔹 Skilled in <strong>AWS, Kubernetes, Docker, and Cloud Computing</strong> with hands-on experience in deploying scalable systems.
 </p>
 
 <p align="center">
-  🌐 Visit my portfolio: <a href="https://shihabshahrier.github.io/" target="_blank">shihabshahrier.github.io</a>
+  Passionate about generative AI, agentic workflows, and building tools that solve real-world problems.
+</p>
+
+<p align="center">
+  🌐 Portfolio: <a href="https://shihabshahrier.github.io/" target="_blank">shihabshahrier.github.io</a>
 </p>
 
 ---
@@ -80,8 +84,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/-Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
   <img src="https://img.shields.io/badge/-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" />
   <img src="https://img.shields.io/badge/-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" />
   <img src="https://img.shields.io/badge/-Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" />
+  <img src="https://img.shields.io/badge/-AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" />
 </p>
 
 ### 🗄️ APIs & Databases
@@ -96,7 +102,7 @@
 
 ---
 
-<h2 align="center">📚 Learning Goals (Current)</h2>
+<h2 align="center">📚 Learning Goals (2025)</h2>
 
 <p align="center">
   <img src="https://img.shields.io/badge/-Model%20Context%20Protocol-6C63FF?style=for-the-badge&logoColor=white" />
@@ -111,7 +117,7 @@
 <ul align="center">
   <li>♟️ I love playing chess and billiards.</li>
   <li>🍜 I can cook some delicious Chinese cuisines.</li>
-  <li>🎭 I'm passionate about storytelling and building immersive visual worlds.</li>
+  <li>🎭 Passionate about storytelling and creating immersive visual worlds.</li>
 </ul>
 
 ---
@@ -130,7 +136,7 @@
 </p>
 
 <p align="center">
-  💬 Open to collaborating on AI tools, generative apps, research projects, and creative tech platforms.
+  💬 Open to collaborating on AI tools, generative apps, research projects, and creative platforms.
 </p>
 
 ---
