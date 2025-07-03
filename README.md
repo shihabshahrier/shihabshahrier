@@ -32,9 +32,9 @@
   Passionate about generative AI, agentic workflows, and building tools that solve real-world problems.
 </p>
 
-<p align="center">
+<!-- <p align="center">
   🌐 Portfolio: <a href="https://shihabshahrier.github.io/" target="_blank">shihabshahrier.github.io</a>
-</p>
+</p> -->
 
 ---
 
