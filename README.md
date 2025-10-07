@@ -32,9 +32,9 @@
   Passionate about generative AI, agentic workflows, and building tools that solve real-world problems.
 </p>
 
-<!-- <p align="center">
-  🌐 Portfolio: <a href="https://shihabshahrier.github.io/" target="_blank">shihabshahrier.github.io</a>
-</p> -->
+<p align="center">
+  🌐 Portfolio: <a href="http://shub.online/" target="_blank">shub.online</a>
+</p>
 
 ---
 
@@ -71,13 +71,19 @@
   <img src="https://img.shields.io/badge/-Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" />
 </p>
 
-### 📊 Data & Machine Learning
+### 🤖 AI/ML & Generative AI
 <p align="center">
   <img src="https://img.shields.io/badge/-Machine%20Learning-FF6F00?style=for-the-badge&logo=machine-learning&logoColor=white" />
   <img src="https://img.shields.io/badge/-Artificial%20Intelligence-0071C5?style=for-the-badge&logo=artificial-intelligence&logoColor=white" />
   <img src="https://img.shields.io/badge/-Data%20Science-4EA94B?style=for-the-badge&logo=data-science&logoColor=white" />
   <img src="https://img.shields.io/badge/-TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
   <img src="https://img.shields.io/badge/-PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
+  <img src="https://img.shields.io/badge/-LangChain-00B86B?style=for-the-badge&logo=langchain&logoColor=white" />
+  <img src="https://img.shields.io/badge/-LangGraph-FF5733?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Generative%20AI-5C2D91?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Model%20Context%20Protocol-6C63FF?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Contrastive%20Learning-FF6B6B?style=for-the-badge&logoColor=white" />
 </p>
 
 ### 🛠️ Tools & Platforms
@@ -105,10 +111,11 @@
 <h2 align="center">📚 Learning Goals (2025)</h2>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/-Model%20Context%20Protocol-6C63FF?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/-LangChain-00B86B?style=for-the-badge&logo=langchain&logoColor=white" />
-  <img src="https://img.shields.io/badge/-LangGraph-FF5733?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/-Generative%20AI-5C2D91?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Rust-000000?style=for-the-badge&logo=rust&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Web3-FF6B35?style=for-the-badge&logo=web3&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Blockchain-121D33?style=for-the-badge&logo=blockchain&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Ethereum-627EEA?style=for-the-badge&logo=ethereum&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Solidity-363636?style=for-the-badge&logo=solidity&logoColor=white" />
 </p>
 
 ---
