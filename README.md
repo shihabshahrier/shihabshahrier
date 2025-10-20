@@ -33,7 +33,7 @@
 </p>
 
 <p align="center">
-  🌐 Portfolio: <a href="http://shub.online/" target="_blank">shub.online</a>
+  🌐 Portfolio: <a href="http://shihub.online/" target="_blank">shihub.online</a>
 </p>
 
 ---
