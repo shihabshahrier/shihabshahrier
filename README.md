@@ -1,6 +1,6 @@
 <div align="center">
 
-# Hi, I'm Shahriar 🥷🏿
+# Hi, I'm Shihab Shahriar Antor 🥷🏿
 
 ### Engineer by discipline · Creator by instinct · Architect of my own universe
 
@@ -15,7 +15,7 @@
 
 ## 🌌 Who I Am
 
-I'm **Shihab Shahriar Antor** — a CS escape artist who chose building over comfort.
+I'm **Shihab Shahriar Antor** — an **AI Engineer**, **full-stack developer**, and **founder of [Shahriar Labs](https://shahriarlabs.com)**, based in **Dhaka, Bangladesh**. A CS escape artist who chose building over comfort.
 
 I design systems end-to-end, write production code, ship products, and think in architectures. Some people call that full-stack. I call it **owning the whole problem**.
 
