@@ -50,9 +50,10 @@ MUTED = "#4a6a78"
 GRID = "#0d2530"
 
 HERO_W, HERO_H = 880, 350
-CARD_W, CARD_H = 428, 292
+SIGNAL_W, SIGNAL_H = 880, 292   # stats + languages share one bezel
 CONTRIB_W, CONTRIB_H = 880, 212
-AVATAR_PX = 3  # SVG units per portrait cell
+AVATAR_SPAN = 240  # portrait box in SVG units; cell size derives from it,
+                   # so changing the grid resolution cannot overflow the card
 
 # Monochrome phosphor ramp for the portrait — the picture is rendered the way a
 # single-colour CRT terminal would show it, in the same cyan as everything else.
@@ -392,7 +393,7 @@ def human(n):
 
 
 # ---------------------------------------------------------------- portrait ---
-def portrait(grid, ramp, ox, oy, cell=AVATAR_PX, base_delay=0.30, per_row=0.012):
+def portrait(grid, ramp, ox, oy, span=AVATAR_SPAN, base_delay=0.30, per_row=0.012):
     """One <g> per scanline row, each with its own delay, so the face paints in
     top to bottom.
 
@@ -401,6 +402,7 @@ def portrait(grid, ramp, ox, oy, cell=AVATAR_PX, base_delay=0.30, per_row=0.012)
     which matters more now that the grid is monochrome — far more neighbours
     share a value, so the file stays small despite the higher resolution.
     """
+    cell = span / len(grid)
     out = []
     for row_index, row in enumerate(grid):
         rects = []
@@ -412,8 +414,8 @@ def portrait(grid, ramp, ox, oy, cell=AVATAR_PX, base_delay=0.30, per_row=0.012)
                 run += 1
             if level is not None:
                 rects.append(
-                    f'<rect x="{ox + col * cell}" y="{oy + row_index * cell}" '
-                    f'width="{run * cell}" height="{cell}" fill="{ramp[level]}"/>'
+                    f'<rect x="{ox + col * cell:.2f}" y="{oy + row_index * cell:.2f}" '
+                    f'width="{run * cell:.2f}" height="{cell:.2f}" fill="{ramp[level]}"/>'
                 )
             col += run
         if rects:
@@ -425,8 +427,7 @@ def portrait(grid, ramp, ox, oy, cell=AVATAR_PX, base_delay=0.30, per_row=0.012)
 # ----------------------------------------------------------------- cards ----
 def hero_card(data, grid, ramp):
     uid = "H"
-    cells = len(grid)
-    span = cells * AVATAR_PX
+    span = AVATAR_SPAN
     ax, ay = 34, 52
     body = [crt_open(uid, HERO_W, HERO_H, f"{data['name']} — pixel profile card")]
     body.append(header_bar(uid, 12, 12, HERO_W - 24,
@@ -503,13 +504,11 @@ def hero_card(data, grid, ramp):
     return "".join(body)
 
 
-def stats_card(data):
-    uid = "S"
-    body = [crt_open(uid, CARD_W, CARD_H, "GitHub statistics")]
-    body.append(header_bar(uid, 12, 12, CARD_W - 24, "SYS.STATS", "ALL TIME"))
-
+def stats_panel(data, uid, ox, pw):
+    """Six stat tiles, drawn inside a panel whose left edge is at `ox`."""
+    body = [header_bar(uid, ox + 12, 12, pw - 24, "SYS.STATS", "ALL TIME")]
     pad = 26
-    col_w = (CARD_W - pad * 2 - 14) // 2
+    col_w = (pw - pad * 2 - 14) // 2
     cells = [("TOTAL COMMITS", human(data["commits"])),
              ("PULL REQUESTS", human(data["prs"])),
              ("REPOSITORIES", human(data["repos"])),
@@ -518,7 +517,7 @@ def stats_card(data):
              ("LONGEST STREAK", f"{data['best_streak']}D")]
 
     for i, (label, value) in enumerate(cells):
-        x = pad + (i % 2) * (col_w + 14)
+        x = ox + pad + (i % 2) * (col_w + 14)
         y = 54 + (i // 2) * 62
         delay = 0.5 + i * 0.09
         scale = fit_scale(value, col_w - 20, 4, 2)
@@ -532,23 +531,21 @@ def stats_card(data):
         )
 
     footer = f"CURRENT STREAK {data['streak']} DAYS * {data['followers']} FOLLOWERS"
-    body.append(px_text(footer, pad, CARD_H - 32, 1, CYAN_DIM, 1.05, dy=4))
-    body.append(crt_close(uid, CARD_W, CARD_H))
+    body.append(px_text(footer, ox + pad, SIGNAL_H - 32, 1, CYAN_DIM, 1.05, dy=4))
     return "".join(body)
 
 
-def langs_card(data, top=6, keep_markup=False):
-    uid = "L"
-    body = [crt_open(uid, CARD_W, CARD_H, "Language distribution")]
+def langs_panel(data, uid, ox, pw, top=6, keep_markup=False):
+    """Language bars, drawn inside a panel whose left edge is at `ox`."""
     scope = "OWNED REPOS" if keep_markup else "CODE ONLY"
-    body.append(header_bar(uid, 12, 12, CARD_W - 24, "LANG.BYTES", scope))
+    body = [header_bar(uid, ox + 12, 12, pw - 24, "LANG.BYTES", scope)]
 
     langs = {k: v for k, v in data["langs"].items()
              if keep_markup or k not in NOISE_LANGS}
     ranked = sorted(langs.items(), key=lambda kv: -kv[1])[:top]
     total = sum(langs.values()) or 1
     pad, seg, gap = 26, 26, 2
-    bar_w = CARD_W - pad * 2
+    bar_w = pw - pad * 2
     block_w = (bar_w - (seg - 1) * gap) / seg
 
     y = 54
@@ -558,11 +555,11 @@ def langs_card(data, top=6, keep_markup=False):
         color = data["lang_color"].get(name, CYAN)
         pct = f"{share * 100:.1f}%"
         row_delay = 0.5 + bar_index * 0.10
-        body.append(px_text(name[:14], pad, y, 1, WHITE, row_delay, dy=4))
-        body.append(px_text(pct, pad + bar_w - text_width(pct, 1), y, 1, CYAN_DIM,
+        body.append(px_text(name[:14], ox + pad, y, 1, WHITE, row_delay, dy=4))
+        body.append(px_text(pct, ox + pad + bar_w - text_width(pct, 1), y, 1, CYAN_DIM,
                             row_delay, dy=4))
         for i in range(seg):
-            bx = pad + i * (block_w + gap)
+            bx = ox + pad + i * (block_w + gap)
             if i < filled:
                 delay = row_delay + 0.06 + i * 0.022
                 body.append(
@@ -576,9 +573,26 @@ def langs_card(data, top=6, keep_markup=False):
 
     rest = len(langs) - len(ranked)
     other = 100 - sum(s for _, s in ranked) / total * 100
-    body.append(px_text(f"+ {rest} MORE LANGUAGES * {other:.1f}%", pad, CARD_H - 32,
-                        1, MUTED, 1.25, dy=4))
-    body.append(crt_close(uid, CARD_W, CARD_H))
+    body.append(px_text(f"+ {rest} MORE LANGUAGES * {other:.1f}%", ox + pad,
+                        SIGNAL_H - 32, 1, MUTED, 1.25, dy=4))
+    return "".join(body)
+
+
+def signal_card(data, keep_markup=False):
+    """Stats and languages in one bezel.
+
+    They were two 428px cards sitting next to each other in the README, which
+    put them right at the container width — GitHub wrapped them onto separate
+    lines. One card cannot wrap.
+    """
+    uid = "S"
+    half = (SIGNAL_W - 24) // 2
+    body = [crt_open(uid, SIGNAL_W, SIGNAL_H, "GitHub statistics and languages")]
+    body.append(stats_panel(data, uid, 12, half))
+    body.append(langs_panel(data, uid, 12 + half, half, keep_markup=keep_markup))
+    body.append(f'<g>{reveal(0.45)}<rect x="{12 + half}" y="44" width="1" '
+                f'height="{SIGNAL_H - 76}" fill="{CYAN}" opacity="0.18"/></g>')
+    body.append(crt_close(uid, SIGNAL_W, SIGNAL_H))
     return "".join(body)
 
 
@@ -705,8 +719,7 @@ def main():
     os.makedirs(args.out, exist_ok=True)
     for name, svg in {
         "hero-card.svg": hero_card(data, avatar["grid"], ramp),
-        "stats.svg": stats_card(data),
-        "langs.svg": langs_card(data, keep_markup=args.keep_markup),
+        "signal.svg": signal_card(data, keep_markup=args.keep_markup),
         "contrib.svg": contrib_card(data),
         "products.svg": products_card(),
         "skills.svg": skills_card(),

@@ -24,8 +24,7 @@ I design systems end-to-end and ship the products I design. Prior research: exop
 
 <br />
 
-<img src="assets/stats.svg" alt="GitHub statistics" width="428" />
-<img src="assets/langs.svg" alt="Language distribution by bytes written" width="428" />
+<img src="assets/signal.svg" alt="GitHub statistics and language distribution by bytes written" width="880" />
 
 <img src="assets/contrib.svg" alt="Contribution activity over the last 12 months" width="880" />
 

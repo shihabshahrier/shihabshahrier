@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
-"""Turn the GitHub avatar into a background-free monochrome pixel grid.
+"""Turn a portrait into a background-free monochrome pixel grid.
 
-The output is a grid of *brightness levels*, not colors — the phosphor palette
+The output is a grid of *brightness levels*, not colours — the phosphor palette
 lives in gen_cards.py so the card can be re-themed without re-running this.
 Cells outside the subject are null, so the portrait floats on the screen.
 
 Run this only when the profile picture changes:
 
     pip install pillow opencv-python-headless numpy
-    python scripts/gen_avatar.py
+    python scripts/gen_avatar.py                          # current GitHub avatar
+    python scripts/gen_avatar.py --source photo.jpg       # a local file
 
 It writes assets/avatar-grid.json, which gen_cards.py reads. Keeping the grid
 checked in means the nightly card refresh needs no image libraries at all.
+
+Tuned for a centred head-and-shoulders portrait. If a new photo is framed very
+differently, the SEED_* fractions below are the knobs; --debug writes a preview
+PNG so you can see what the mask actually caught.
 """
 
 from __future__ import annotations
@@ -30,10 +35,34 @@ USER = "shihabshahrier"
 CELLS = 80          # grid resolution
 LEVELS = 16         # brightness steps in the phosphor ramp
 ALPHA_CUT = 118     # cell belongs to the subject above this alpha
-GAMMA = 0.86        # <1 lifts midtones so faces don't sink into the dark end
+
+# Tone mapping. A bright shirt against a bright wall otherwise pins the top of
+# the ramp and leaves the face sitting in the dark half, so the highlights get
+# compressed above the knee before the ramp is applied.
+KNEE = 0.70         # luminance where highlight compression starts
+KNEE_SLOPE = 0.45   # how much of the range highlights keep above the knee
+GAMMA = 0.82        # <1 lifts midtones so the face reads
+
+# How far below the shoulder line to frame, as a fraction of head width. Lower
+# values crop the torso out. Worth reducing when the subject wears something
+# bright: on a single-colour ramp a white shirt takes the top of the range and
+# pushes the face into the dark half.
+CROP_EXTRA = 0.70
+
+# GrabCut seeding, as fractions of the source. Head ellipse, torso block, and a
+# background ring that stays clear of the shoulders.
+SEED_HEAD = (0.49, 0.36, 0.24, 0.21)      # cx, cy, rx, ry — definite subject
+SEED_HEAD_LOOSE = (0.49, 0.38, 0.37, 0.31)  # probable subject
+SEED_TORSO = (0.05, 0.62, 1.00, 1.00)     # probable subject
+SEED_TORSO_SURE = (0.28, 0.80, 0.72, 1.00)  # definite subject
+SEED_BG_TOP = 0.06                        # top band is definitely background
+SEED_BG_SIDE = 0.10                       # side margins, above SEED_BG_DEPTH
+SEED_BG_DEPTH = 0.50
 
 
-def fetch(login):
+def load(login, source):
+    if source:
+        return Image.open(source).convert("RGB")
     url = f"https://github.com/{login}.png?size=460"
     req = urllib.request.Request(url, headers={"User-Agent": "profile-card-generator"})
     with urllib.request.urlopen(req, timeout=45) as resp:
@@ -43,90 +72,146 @@ def fetch(login):
 def foreground_mask(img):
     """GrabCut with an explicit mask: ring of background, head + torso as subject.
 
-    A plain rect init clips the shoulders on this portrait, which leaves a
-    floating head — seeding the torso as probable foreground keeps the bust.
+    A plain rect init clips the shoulders, which leaves a floating head, so the
+    torso is seeded as foreground explicitly.
     """
     arr = np.array(img)[:, :, ::-1].copy()  # PIL RGB -> OpenCV BGR
     h, w = arr.shape[:2]
 
     mask = np.full((h, w), cv2.GC_PR_BGD, np.uint8)
-    mask[: int(h * 0.03), :] = cv2.GC_BGD
-    mask[:, : int(w * 0.06)] = cv2.GC_BGD
-    mask[:, int(w * 0.94) :] = cv2.GC_BGD
-    cv2.rectangle(mask, (int(w * 0.18), int(h * 0.60)), (int(w * 0.82), h - 1),
-                  cv2.GC_PR_FGD, -1)
-    cv2.rectangle(mask, (int(w * 0.30), int(h * 0.72)), (int(w * 0.70), h - 1),
-                  cv2.GC_FGD, -1)
-    cv2.ellipse(mask, (int(w * 0.52), int(h * 0.34)),
-                (int(w * 0.17), int(h * 0.22)), 0, 0, 360, cv2.GC_FGD, -1)
-    cv2.ellipse(mask, (int(w * 0.52), int(h * 0.36)),
-                (int(w * 0.26), int(h * 0.32)), 0, 0, 360, cv2.GC_PR_FGD, -1)
+    mask[: int(h * SEED_BG_TOP), :] = cv2.GC_BGD
+    mask[: int(h * SEED_BG_DEPTH), : int(w * SEED_BG_SIDE)] = cv2.GC_BGD
+    mask[: int(h * SEED_BG_DEPTH), int(w * (1 - SEED_BG_SIDE)) :] = cv2.GC_BGD
+
+    for (x0, y0, x1, y1), label in ((SEED_TORSO, cv2.GC_PR_FGD),
+                                    (SEED_TORSO_SURE, cv2.GC_FGD)):
+        cv2.rectangle(mask, (int(w * x0), int(h * y0)),
+                      (min(w - 1, int(w * x1)), min(h - 1, int(h * y1))), label, -1)
+    for (cx, cy, rx, ry), label in ((SEED_HEAD_LOOSE, cv2.GC_PR_FGD),
+                                    (SEED_HEAD, cv2.GC_FGD)):
+        cv2.ellipse(mask, (int(w * cx), int(h * cy)), (int(w * rx), int(h * ry)),
+                    0, 0, 360, label, -1)
 
     bgd = np.zeros((1, 65), np.float64)
     fgd = np.zeros((1, 65), np.float64)
-    cv2.grabCut(arr, mask, None, bgd, fgd, 8, cv2.GC_INIT_WITH_MASK)
+    cv2.grabCut(arr, mask, None, bgd, fgd, 9, cv2.GC_INIT_WITH_MASK)
 
     fg = np.where((mask == cv2.GC_BGD) | (mask == cv2.GC_PR_BGD), 0, 1).astype(np.uint8)
-    fg = cv2.morphologyEx(fg, cv2.MORPH_CLOSE, np.ones((21, 21), np.uint8))
-    fg = cv2.morphologyEx(fg, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))
+    k = max(3, int(min(w, h) * 0.02) | 1)
+    fg = cv2.morphologyEx(fg, cv2.MORPH_CLOSE, np.ones((k, k), np.uint8))
+    fg = cv2.morphologyEx(fg, cv2.MORPH_OPEN, np.ones((max(3, k // 3) | 1,) * 2, np.uint8))
     count, labels, stats, _ = cv2.connectedComponentsWithStats(fg, 8)
     if count > 1:  # drop stray blobs, keep the person
         fg = (labels == 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])).astype(np.uint8)
     return fg
 
 
-def build(login, cells, levels):
-    img = fetch(login)
+def bust_crop(fg, size, extra=None):
+    """Square crop framing head and shoulders.
+
+    Cropping to the whole foreground bounding box pushes the shoulders out to
+    the card edges, because they are the widest part of the subject. Instead,
+    find the row where the silhouette flares out from head width to shoulder
+    width, and frame relative to that.
+    """
+    w, h = size
+    ys, xs = np.where(fg > 0)
+    top = ys.min()
+    widths = fg.sum(axis=1)[top : ys.max() + 1]
+
+    head_band = widths[: max(1, int(len(widths) * 0.20))]
+    head_w = float(np.median(head_band[head_band > 0]))
+    flare = np.where(widths > head_w * 1.55)[0]
+    shoulder = top + int(flare[0] if len(flare) else len(widths) - 1)
+
+    head_rows = fg[top : top + max(1, int(head_w * 0.8))]
+    hx = np.where(head_rows.sum(axis=0) > 0)[0]
+    head_cx = int((hx.min() + hx.max()) // 2)
+
+    y0 = int(top - head_w * 0.16)
+    side = int((shoulder + head_w * (CROP_EXTRA if extra is None else extra)) - y0)
+    x0 = int(head_cx - side / 2)
+    # Deliberately not clamped to the image. A tightly framed photo would other-
+    # wise get a non-square crop, which squashes the face when it is resized to
+    # the grid. build() pads instead — outside the frame is background anyway,
+    # and background is transparent on the card.
+    return (x0, y0, x0 + side, y0 + side)
+
+
+def tone(grey):
+    """Autocontrast, compress highlights above the knee, then lift midtones."""
+    lum = np.asarray(ImageOps.autocontrast(grey, cutoff=(1, 2)), np.float32) / 255.0
+    lum = np.where(lum <= KNEE, lum, KNEE + (lum - KNEE) * KNEE_SLOPE)
+    peak = lum.max() or 1.0
+    return np.power(np.clip(lum / peak, 0, 1), GAMMA)
+
+
+def build(img, cells, levels, extra=None):
     mask = foreground_mask(img)
-    ys, xs = np.where(mask > 0)
-    if len(xs) == 0:
+    if not mask.any():
         raise SystemExit("Background removal found no subject.")
 
-    # square crop centred on the subject so the bust fills the grid
-    cx, cy = (xs.min() + xs.max()) // 2, (ys.min() + ys.max()) // 2
-    half = int(max(xs.max() - xs.min(), ys.max() - ys.min()) * 0.56)
+    x0, y0, x1, y1 = bust_crop(mask, img.size, extra)
     w, h = img.size
-    box = (max(0, cx - half), max(0, cy - half), min(w, cx + half), min(h, cy + half))
+    pad = (max(0, -x0), max(0, -y0), max(0, x1 - w), max(0, y1 - h))
+    if any(pad):
+        img = ImageOps.expand(img, border=pad, fill=(0, 0, 0))
+        mask = np.pad(mask, ((pad[1], pad[3]), (pad[0], pad[2])))
+        x0, y0, x1, y1 = x0 + pad[0], y0 + pad[1], x1 + pad[0], y1 + pad[1]
+    box = (x0, y0, x1, y1)
 
     # Sharpen before downsampling — at this resolution soft edges become mush,
-    # and a monochrome ramp has no color left to carry the features.
-    src = ImageEnhance.Contrast(img).enhance(1.15)
-    src = src.filter(ImageFilter.UnsharpMask(radius=3, percent=115, threshold=2))
+    # and a monochrome ramp has no colour left to carry the features.
+    src = ImageEnhance.Contrast(img).enhance(1.10)
+    src = src.filter(ImageFilter.UnsharpMask(radius=3, percent=110, threshold=2))
 
-    grey = src.crop(box).convert("L")
-    grey = grey.resize((cells, cells), Image.LANCZOS)
-    grey = ImageOps.autocontrast(grey, cutoff=(1, 2))  # use the whole ramp
-
-    lum = np.asarray(grey, dtype=np.float32) / 255.0
-    lum = np.power(lum, GAMMA)
-    quant = np.clip((lum * (levels - 1)).round().astype(int), 0, levels - 1)
+    grey = src.crop(box).convert("L").resize((cells, cells), Image.LANCZOS)
+    quant = np.clip((tone(grey) * (levels - 1)).round().astype(int), 0, levels - 1)
 
     alpha = np.array(
         Image.fromarray(mask * 255).crop(box).resize((cells, cells), Image.LANCZOS)
     )
-
     grid = [
         [None if alpha[y, x] < ALPHA_CUT else int(quant[y, x]) for x in range(cells)]
         for y in range(cells)
     ]
-    return grid
+    return grid, box, mask
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--user", default=USER)
+    ap.add_argument("--source", help="local image file instead of the GitHub avatar")
     ap.add_argument("--cells", type=int, default=CELLS)
     ap.add_argument("--levels", type=int, default=LEVELS)
     ap.add_argument("--out", default="assets/avatar-grid.json")
+    ap.add_argument("--crop-extra", type=float, default=CROP_EXTRA,
+                    help="how far below the shoulders to frame (lower = tighter)")
+    ap.add_argument("--debug", help="write a PNG preview of the pixel grid here")
     args = ap.parse_args()
 
-    grid = build(args.user, args.cells, args.levels)
+    img = load(args.user, args.source)
+    grid, box, _ = build(img, args.cells, args.levels, args.crop_extra)
     lit = sum(1 for row in grid for cell in row if cell is not None)
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
+
+    os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
     with open(args.out, "w") as fh:
         json.dump({"cells": args.cells, "levels": args.levels, "grid": grid}, fh)
-    print(f"wrote {args.out} — {args.cells}x{args.cells}, "
-          f"{lit} subject cells, {args.levels} brightness levels")
+    print(f"wrote {args.out} — {args.cells}x{args.cells}, {lit} subject cells "
+          f"({100 * lit / args.cells ** 2:.0f}% coverage), crop {box}")
+
+    if args.debug:
+        scale = 6
+        prev = Image.new("RGB", (args.cells * scale,) * 2, (5, 8, 13))
+        cell = Image.new("RGB", (args.cells, args.cells), (5, 8, 13))
+        for y, row in enumerate(grid):
+            for x, level in enumerate(row):
+                if level is not None:
+                    v = int(255 * level / (args.levels - 1))
+                    cell.putpixel((x, y), (v // 4, v, v))
+        prev.paste(cell.resize((args.cells * scale,) * 2, Image.NEAREST), (0, 0))
+        prev.save(args.debug)
+        print(f"wrote {args.debug}")
 
 
 if __name__ == "__main__":
