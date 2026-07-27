@@ -1,0 +1,65 @@
+name: Refresh profile cards
+
+# Regenerates the CRT stat cards in assets/ so the README never depends on a
+# third-party card service. The portrait is not touched here — it lives in
+# assets/avatar-grid.json and only changes when you rerun scripts/gen_avatar.py.
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # 02:17 UTC daily (~08:17 Asia/Dhaka)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/profile-cards.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-cards
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The default GITHUB_TOKEN cannot see private repositories or restricted
+      # contributions, so running with it would silently replace the committed
+      # cards with much smaller public-only numbers. Skip instead of degrading.
+      - name: Check for PROFILE_TOKEN
+        id: tok
+        run: echo "present=${{ secrets.PROFILE_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+
+      - name: Explain missing token
+        if: steps.tok.outputs.present != 'true'
+        run: |
+          echo "::warning::PROFILE_TOKEN is not set — leaving the committed cards alone."
+          echo "Add a classic PAT with 'repo' + 'read:user' as the repository secret"
+          echo "PROFILE_TOKEN to enable the nightly refresh with private repos included."
+
+      - name: Generate cards
+        if: steps.tok.outputs.present == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN }}
+        run: python scripts/gen_cards.py --out assets
+
+      - name: Commit if changed
+        if: steps.tok.outputs.present == 'true'
+        run: |
+          if [[ -z "$(git status --porcelain assets)" ]]; then
+            echo "Cards unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git commit -m "chore: refresh profile cards"
+          git push

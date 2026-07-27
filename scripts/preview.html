@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Profile cards — preview</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 40px 20px; background: #0d1117;
+    font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #4a6a78; display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  button {
+    margin-bottom: 14px; padding: 9px 18px; cursor: pointer;
+    background: #0d2530; color: #00D9FF; border: 1px solid #00D9FF55;
+    border-radius: 4px; font: inherit; letter-spacing: .08em;
+  }
+  button:hover { background: #113442; }
+  footer { margin-top: 22px; text-align: center; line-height: 1.7; }
+  code { color: #00D9FF; }
+</style>
+
+<button onclick="replay()">▶ REPLAY ANIMATION</button>
+
+<img id="hero" src="../assets/hero-card.svg" width="880" alt="hero card" />
+<div class="row">
+  <img id="stats" src="../assets/stats.svg" width="428" alt="stats card" />
+  <img id="langs" src="../assets/langs.svg" width="428" alt="languages card" />
+</div>
+<img id="contrib" src="../assets/contrib.svg" width="880" alt="contribution grid" />
+
+<footer>
+  Regenerate stats: <code>python scripts/gen_cards.py</code><br />
+  Regenerate the portrait after changing your avatar: <code>python scripts/gen_avatar.py</code>
+</footer>
+
+<script>
+  // Re-requesting each SVG with a fresh query string restarts its CSS timeline,
+  // which is the only way to watch the intro again without reloading the page.
+  function replay() {
+    for (const img of document.images) {
+      img.src = img.src.split("?")[0] + "?t=" + Date.now();
+    }
+  }
+</script>

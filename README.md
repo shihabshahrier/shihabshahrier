@@ -1,13 +1,12 @@
 <div align="center">
 
-# Hi, I'm Shihab Shahriar Antor 🥷🏿
-
-### Engineer by discipline · Creator by instinct · Architect of my own universe
-
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&multiline=true&width=600&height=100&lines=Founder+of+Shahriar+Labs;AI+Engineer+%7C+System+Architect;Building+Products+that+Didn't+Exist+Yesterday" alt="Typing SVG" />
+<img src="assets/hero-card.svg" alt="Shihab Shahriar Antor — AI Engineer, Founder of Shahriar Labs, Dhaka Bangladesh" width="880" />
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-shihub.online-00D9FF?style=for-the-badge&logo=google-chrome&logoColor=white)](http://shihub.online/)
 [![Shahriar Labs](https://img.shields.io/badge/Studio-Shahriar_Labs-FF6B6B?style=for-the-badge&logo=rocket&logoColor=white)](https://shahriarlabs.com/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/shihabshahrier/)
+[![X](https://img.shields.io/badge/@__shihabShahriar-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/_shihabShahriar)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shihab@shahriarlabs.com)
 
 </div>
 
@@ -15,11 +14,9 @@
 
 ## 🌌 Who I Am
 
-I'm **Shihab Shahriar Antor** — an **AI Engineer**, **full-stack developer**, and **founder of [Shahriar Labs](https://shahriarlabs.com)**, based in **Dhaka, Bangladesh**. A CS escape artist who chose building over comfort.
+I'm **Shihab Shahriar Antor** — an **AI Engineer**, **full-stack developer**, and **founder of [Shahriar Labs](https://shahriarlabs.com)**, based in **Dhaka, Bangladesh**.
 
 I design systems end-to-end, write production code, ship products, and think in architectures. Some people call that full-stack. I call it **owning the whole problem**.
-
-> *I believe engineers shouldn't just implement ideas — they should **invent worlds**, define rules, and let others build inside them.*
 
 ---
 
@@ -94,13 +91,47 @@ Supporting indie artists and producing original stories through *ComiKola Origin
 
 ---
 
-## 🔬 Research & Engineering Depth
+## 🤖 Agent Skills & AI Tooling
 
-Conducted research on **exoplanet detection** using advanced ML techniques:
+Open-source skills and harnesses that make coding agents actually useful. Built for Claude Code, and portable across agents that follow the Agent Skills standard.
+
+| Project | What it does |
+| --- | --- |
+| [**latex-engineer**](https://github.com/shihabshahrier/latex-engineer) | Turns an agent into a LaTeX engineer — generates, compiles, and debugs real projects |
+| [**manim-coding-skill**](https://github.com/shihabshahrier/manim-coding-skill) | Teaching-quality STEM animation with ManimGL, chunked and merged into final video |
+| [**skill-builder**](https://github.com/shihabshahrier/skill-builder) | Builds and audits agent skills from a plain-English description |
+| [**common-knowledge**](https://github.com/shihabshahrier/common-knowledge) | Git-backed memory store shared across projects and agents |
+| [**Godot-Skill**](https://github.com/shihabshahrier/Godot-Skill) | Strictly-typed GDScript 2.0 for Godot 4.3+, enforcing the official style guide |
+| [**seo-master-skill**](https://github.com/shihabshahrier/seo-master-skill) | SEO + GEO + AEO playbook — ranking for search engines *and* answer engines |
+| [**freelm**](https://github.com/shihabshahrier/freelm) | Always-up free-LLM client and gateway for Python and TypeScript |
+| [**CH-Bench**](https://github.com/shihabshahrier/CH-Bench) | Apples-to-apples benchmark for AI memory and RAG — recall and answer quality |
+| [**softco**](https://github.com/shihabshahrier/softco) | Turns coding agents into an autonomous software firm |
+| [**clean-my-mac**](https://github.com/shihabshahrier/clean-my-mac) | Staged, consent-gated macOS disk cleanup for devs and agents |
+
+---
+
+## 📊 Signal
+
+<div align="center">
+
+<img src="assets/stats.svg" alt="GitHub statistics" width="428" />
+<img src="assets/langs.svg" alt="Language distribution by bytes written" width="428" />
+
+<img src="assets/contrib.svg" alt="Contribution activity over the last 12 months" width="880" />
+
+<sub>Cards are generated from the GitHub API by <a href="scripts/gen_cards.py">a script in this repo</a> and refreshed nightly — no third-party card service, nothing to 503 on me.</sub>
+
+</div>
+
+---
+
+## 🔬 Research
+
+Exoplanet detection using contrastive and detection-based ML:
 
 - **Models:** SimCLR, Siamese Networks, YOLOv6/v7, DenseNet, ResNet50
-- **Achievement:** 92% accuracy on astronomical imaging datasets
-- **Focus:** Contrastive learning for rare event detection
+- **Result:** 92% accuracy on astronomical imaging datasets
+- **Focus:** contrastive learning for rare-event detection
 
 I enjoy problems where data is messy, scale matters, and intuition counts as much as math.
 
@@ -111,54 +142,31 @@ I enjoy problems where data is messy, scale matters, and intuition counts as muc
 <div align="center">
 
 ### Languages
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white)
+![GDScript](https://img.shields.io/badge/GDScript-478CBF?style=for-the-badge&logo=godotengine&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
-![C](https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=black)
 ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 
-### Frameworks & Tools
-![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+### Frameworks & Runtime
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Godot](https://img.shields.io/badge/Godot-478CBF?style=for-the-badge&logo=godotengine&logoColor=white)
 
-### AI/ML & Infrastructure
+### AI & Infrastructure
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
-
-</div>
-
----
-
-## 🧭 Personal Vision
-
-I'm not chasing hype cycles. I'm **compounding skill, curiosity, and ownership**.
-
-**My long-term goal is to build:**
-- 🛠️ Tools that empower creators
-- 🌍 Systems that scale without losing soul
-- 🇧🇩 Technology rooted in local culture, but global in ambition
-
-I build as an **engineer**, think like a **systems architect**, and dream beyond the horizon.
-
----
-
-## 📊 GitHub Stats
-
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=shihabshahrier&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00D9FF&icon_color=00D9FF&text_color=FFFFFF" alt="GitHub Stats" height="170" />
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=shihabshahrier&theme=tokyonight&hide_border=true&background=0D1117&ring=00D9FF&fire=FF6B6B&currStreakLabel=00D9FF" alt="GitHub Streak" height="170" />
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=shihabshahrier&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF" alt="Top Languages" />
 
 </div>
 
@@ -166,26 +174,13 @@ I build as an **engineer**, think like a **systems architect**, and dream beyond
 
 ## 🤝 Let's Build
 
-I'm open to:
-- ✨ Serious collaborations
-- 🔬 Research & product partnerships
-- 🚀 Ambitious ideas that need structure, not noise
+Open to serious collaborations, research and product partnerships, and ambitious ideas that need structure rather than noise.
 
 **If something here clicks, you already know the next move.**
 
----
-
 <div align="center">
 
-## 🔗 Connect With Me
-
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shihabshahrier)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/shihabshahrier/)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shihab@shahriarlabs.com)
-
----
-
-<img src="https://komarev.com/ghpvc/?username=shihabshahrier&color=00D9FF&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />
+<img src="https://komarev.com/ghpvc/?username=shihabshahrier&color=00D9FF&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile views" />
 
 *"I deploy what I design. No mystery handoffs."*
 
