@@ -10,6 +10,7 @@ Run this only when the profile picture changes:
     pip install pillow opencv-python-headless numpy
     python scripts/gen_avatar.py                          # current GitHub avatar
     python scripts/gen_avatar.py --source photo.jpg       # a local file
+    python scripts/gen_avatar.py --source cutout.png      # already has alpha
 
 It writes assets/avatar-grid.json, which gen_cards.py reads. Keeping the grid
 checked in means the nightly card refresh needs no image libraries at all.
@@ -39,15 +40,16 @@ ALPHA_CUT = 118     # cell belongs to the subject above this alpha
 # Tone mapping. A bright shirt against a bright wall otherwise pins the top of
 # the ramp and leaves the face sitting in the dark half, so the highlights get
 # compressed above the knee before the ramp is applied.
-KNEE = 0.70         # luminance where highlight compression starts
-KNEE_SLOPE = 0.45   # how much of the range highlights keep above the knee
-GAMMA = 0.82        # <1 lifts midtones so the face reads
+KNEE = 0.82         # luminance where highlight compression starts
+KNEE_SLOPE = 0.35   # how much of the range highlights keep above the knee
+GAMMA = 0.90        # <1 lifts midtones so the face reads
 
 # How far below the shoulder line to frame, as a fraction of head width. Lower
 # values crop the torso out. Worth reducing when the subject wears something
 # bright: on a single-colour ramp a white shirt takes the top of the range and
 # pushes the face into the dark half.
-CROP_EXTRA = 0.70
+CROP_EXTRA = 0.30
+METRIC_WIDTH = 900  # silhouette is measured at this size, whatever the source
 
 # GrabCut seeding, as fractions of the source. Head ellipse, torso block, and a
 # background ring that stays clear of the shoulders.
@@ -62,11 +64,31 @@ SEED_BG_DEPTH = 0.50
 
 def load(login, source):
     if source:
-        return Image.open(source).convert("RGB")
+        return Image.open(source).convert("RGBA")
     url = f"https://github.com/{login}.png?size=460"
     req = urllib.request.Request(url, headers={"User-Agent": "profile-card-generator"})
     with urllib.request.urlopen(req, timeout=45) as resp:
-        return Image.open(io.BytesIO(resp.read())).convert("RGB")
+        return Image.open(io.BytesIO(resp.read())).convert("RGBA")
+
+
+def supplied_alpha(img, min_transparent=0.03):
+    """Use the image's own alpha channel if it carries a real cutout.
+
+    A hand-made cutout beats anything grabCut infers, particularly around hair,
+    so prefer it whenever the source actually has transparent pixels.
+    """
+    if "A" not in img.getbands():
+        return None
+    alpha = np.asarray(img.getchannel("A"))
+    if (alpha < 16).mean() < min_transparent:
+        return None  # opaque PNG, nothing was cut out
+    fg = (alpha >= 128).astype(np.uint8)
+    k = max(3, int(min(img.size) * 0.004) | 1)
+    fg = cv2.morphologyEx(fg, cv2.MORPH_CLOSE, np.ones((k, k), np.uint8))
+    count, labels, stats, _ = cv2.connectedComponentsWithStats(fg, 8)
+    if count > 1:
+        fg = (labels == 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])).astype(np.uint8)
+    return fg
 
 
 def foreground_mask(img):
@@ -75,7 +97,7 @@ def foreground_mask(img):
     A plain rect init clips the shoulders, which leaves a floating head, so the
     torso is seeded as foreground explicitly.
     """
-    arr = np.array(img)[:, :, ::-1].copy()  # PIL RGB -> OpenCV BGR
+    arr = np.array(img.convert("RGB"))[:, :, ::-1].copy()  # PIL RGB -> OpenCV BGR
     h, w = arr.shape[:2]
 
     mask = np.full((h, w), cv2.GC_PR_BGD, np.uint8)
@@ -113,23 +135,38 @@ def bust_crop(fg, size, extra=None):
     the card edges, because they are the widest part of the subject. Instead,
     find the row where the silhouette flares out from head width to shoulder
     width, and frame relative to that.
+
+    Metrics are measured on a canonical-size copy of the silhouette. Measuring
+    on the raw mask made the framing depend on the source resolution — the same
+    cutout at 2000px and at 900px picked different shoulder lines, because
+    resampling softens the alpha edge and shifts where the flare test trips.
     """
     w, h = size
-    ys, xs = np.where(fg > 0)
-    top = ys.min()
-    widths = fg.sum(axis=1)[top : ys.max() + 1]
+    scale = METRIC_WIDTH / max(fg.shape)
+    small = cv2.resize(fg, None, fx=scale, fy=scale,
+                       interpolation=cv2.INTER_NEAREST) if scale < 1 else fg
+    k = 1.0 / scale if scale < 1 else 1.0
 
-    head_band = widths[: max(1, int(len(widths) * 0.20))]
-    head_w = float(np.median(head_band[head_band > 0]))
-    flare = np.where(widths > head_w * 1.55)[0]
-    shoulder = top + int(flare[0] if len(flare) else len(widths) - 1)
+    ys, _ = np.where(small > 0)
+    top, bottom = ys.min(), ys.max()
+    widths = small.sum(axis=1)[top : bottom + 1]
+    span = len(widths)
 
-    head_rows = fg[top : top + max(1, int(head_w * 0.8))]
+    # The neck is the narrowest row between head and shoulders. Earlier this
+    # looked for where the silhouette flares past a multiple of head width,
+    # which is unstable on a subject whose hair is as wide as their shoulders —
+    # the test tripped on a different row for the same cutout at two sizes.
+    band0, band1 = int(span * 0.30), max(int(span * 0.30) + 1, int(span * 0.85))
+    neck = band0 + int(np.argmin(widths[band0:band1]))
+    head_h = max(neck, 1)
+
+    head_rows = small[top : top + max(1, int(head_h * 0.9))]
     hx = np.where(head_rows.sum(axis=0) > 0)[0]
-    head_cx = int((hx.min() + hx.max()) // 2)
+    head_cx = (hx.min() + hx.max()) / 2
 
-    y0 = int(top - head_w * 0.16)
-    side = int((shoulder + head_w * (CROP_EXTRA if extra is None else extra)) - y0)
+    y0 = (top - head_h * 0.12) * k
+    side = head_h * (1.12 + (CROP_EXTRA if extra is None else extra)) * k
+    y0, side, head_cx = int(y0), int(side), head_cx * k
     x0 = int(head_cx - side / 2)
     # Deliberately not clamped to the image. A tightly framed photo would other-
     # wise get a non-square crop, which squashes the face when it is resized to
@@ -138,18 +175,34 @@ def bust_crop(fg, size, extra=None):
     return (x0, y0, x0 + side, y0 + side)
 
 
-def tone(grey):
-    """Autocontrast, compress highlights above the knee, then lift midtones."""
-    lum = np.asarray(ImageOps.autocontrast(grey, cutoff=(1, 2)), np.float32) / 255.0
+def tone(grey, subject):
+    """Stretch, compress highlights above the knee, then lift midtones.
+
+    Every statistic is taken over `subject` pixels only. A cut-out source has
+    transparent areas that read as pure black, and letting those into the
+    histogram drags the stretch so far that the face blows out to the top of
+    the ramp.
+    """
+    lum = np.asarray(grey, np.float32) / 255.0
+    vals = lum[subject]
+    if vals.size:
+        lo, hi = np.percentile(vals, 1), np.percentile(vals, 98)
+        lum = np.clip((lum - lo) / max(hi - lo, 1e-6), 0, 1)
     lum = np.where(lum <= KNEE, lum, KNEE + (lum - KNEE) * KNEE_SLOPE)
-    peak = lum.max() or 1.0
-    return np.power(np.clip(lum / peak, 0, 1), GAMMA)
+    peak = lum[subject].max() if vals.size else lum.max()
+    return np.power(np.clip(lum / (peak or 1.0), 0, 1), GAMMA)
 
 
 def build(img, cells, levels, extra=None):
-    mask = foreground_mask(img)
+    mask = supplied_alpha(img)
+    source = "alpha channel"
+    if mask is None:
+        mask, source = foreground_mask(img), "grabCut"
     if not mask.any():
         raise SystemExit("Background removal found no subject.")
+    print(f"subject mask from {source}")
+
+    img = img.convert("RGB")
 
     x0, y0, x1, y1 = bust_crop(mask, img.size, extra)
     w, h = img.size
@@ -166,11 +219,12 @@ def build(img, cells, levels, extra=None):
     src = src.filter(ImageFilter.UnsharpMask(radius=3, percent=110, threshold=2))
 
     grey = src.crop(box).convert("L").resize((cells, cells), Image.LANCZOS)
-    quant = np.clip((tone(grey) * (levels - 1)).round().astype(int), 0, levels - 1)
-
     alpha = np.array(
         Image.fromarray(mask * 255).crop(box).resize((cells, cells), Image.LANCZOS)
     )
+    subject = alpha >= ALPHA_CUT
+    quant = np.clip((tone(grey, subject) * (levels - 1)).round().astype(int),
+                    0, levels - 1)
     grid = [
         [None if alpha[y, x] < ALPHA_CUT else int(quant[y, x]) for x in range(cells)]
         for y in range(cells)
