@@ -32,7 +32,9 @@ import urllib.request
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from pixelfont import fit_scale, text_height, text_pixels, text_width  # noqa: E402
+from pixelfont import (  # noqa: E402
+    TRACKING, fit_scale, text_height, text_pixels, text_width,
+)
 
 USER = "shihabshahrier"
 API = "https://api.github.com/graphql"
@@ -79,6 +81,33 @@ def phosphor_ramp(levels):
         else:
             ramp.append("#%02x%02x%02x" % PHOSPHOR[-1][1])
     return ramp
+
+# Content for the products and agent-skills cards. Everything else on the cards
+# comes from the API; these two lists are the only hand-maintained copy.
+# (name, one-line description, right-aligned tag)
+PRODUCTS = [
+    ("LETX", "REAL-TIME COLLABORATIVE LATEX FOR RESEARCHERS AND TEAMS", "LETX.APP"),
+    ("QUANTUMSKETCH", "AI ENGINE THAT TURNS STEM CONCEPTS INTO ANIMATED EXPLANATIONS",
+     "QUANTUMSKETCH.APP"),
+    ("BAGH-LANG", "BANGLA-FIRST PROGRAMMING LANGUAGE FOR TEACHING KIDS TO CODE",
+     "SHAHRIARLABS.COM"),
+    ("BIKROY BUDDY", "AI COMMERCE AGENT -- QUALIFIES LEADS AND NEGOTIATES FOR SELLERS",
+     "BIKROYBUDDY.COM"),
+    ("COMIKOLA", "BANGLA WEBTOON PLATFORM AND STUDIO FOR INDIE ARTISTS", "COMIKOLA.COM"),
+]
+
+SKILLS = [
+    ("LATEX-ENGINEER", "GENERATES, COMPILES AND DEBUGS REAL LATEX PROJECTS", ""),
+    ("MANIM-CODING-SKILL", "TEACHING-QUALITY STEM ANIMATION WITH MANIMGL", ""),
+    ("SKILL-BUILDER", "BUILDS AND AUDITS AGENT SKILLS FROM PLAIN ENGLISH", ""),
+    ("COMMON-KNOWLEDGE", "GIT-BACKED MEMORY SHARED ACROSS AGENTS", ""),
+    ("CLEAN-MY-MAC", "STAGED, CONSENT-GATED MACOS DISK CLEANUP", ""),
+    ("GODOT-SKILL", "STRICTLY TYPED GDSCRIPT FOR GODOT 4.3+", ""),
+    ("SEO-MASTER-SKILL", "SEO + GEO + AEO PLAYBOOK FOR ANSWER ENGINES", ""),
+    ("FREELM", "ALWAYS-UP FREE-LLM CLIENT AND GATEWAY", ""),
+    ("CH-BENCH", "BENCHMARK FOR AI MEMORY AND RAG RECALL", ""),
+    ("SOFTCO", "TURNS CODING AGENTS INTO AN AUTONOMOUS SOFTWARE FIRM", ""),
+]
 
 # Markup and stylesheets are mostly generated or vendored, and at these volumes
 # they bury the languages actually being written. Override with --keep-markup.
@@ -600,6 +629,53 @@ def contrib_card(data, weeks=52):
     return "".join(body)
 
 
+def list_card(uid, title, right, rows, width, columns=1, pitch=46):
+    """Generic terminal list: `> NAME`, a one-line description, a right-aligned tag.
+
+    Used for the products and agent-skills cards so they share the exact visual
+    language as the data cards instead of falling back to markdown tables.
+    """
+    per_col = -(-len(rows) // columns)  # ceil
+    height = 46 + per_col * pitch + 20
+    body = [crt_open(uid, width, height, title)]
+    body.append(header_bar(uid, 12, 12, width - 24, title, right))
+
+    pad, gap = 26, 24
+    col_w = (width - 24 - pad * 2 - gap * (columns - 1)) // columns
+
+    for index, (name, desc, tag) in enumerate(rows):
+        col, row = index // per_col, index % per_col
+        x = pad + col * (col_w + gap)
+        y = 46 + row * pitch
+        delay = 0.3 + index * 0.07
+
+        marker = "> "
+        name_scale = fit_scale(marker + name, col_w - 90, 2, 1)
+        name_x = x + text_width(marker, name_scale) + TRACKING * name_scale
+        body.append(px_text(marker, x, y, name_scale, CYAN_DIM, delay, dy=5))
+        body.append(px_text(name, name_x, y, name_scale, WHITE, delay, dy=5))
+        if tag:
+            tag_w = text_width(tag, 1)
+            body.append(px_text(tag, x + col_w - tag_w, y + 4, 1, CYAN_DIM,
+                                delay + 0.03, dy=5))
+        desc_scale = fit_scale(desc, col_w, 1, 1)
+        body.append(px_text(desc, x + text_width(marker, name_scale), y + 20,
+                            desc_scale, MUTED, delay + 0.05, dy=5))
+
+    body.append(crt_close(uid, width, height))
+    return "".join(body)
+
+
+def products_card():
+    return list_card(
+        "P", "LABS.PRODUCTS", f"{len(PRODUCTS)} SHIPPING", PRODUCTS, HERO_W, columns=1)
+
+
+def skills_card():
+    return list_card(
+        "K", "AGENT.SKILLS", f"{len(SKILLS)} OPEN SOURCE", SKILLS, HERO_W, columns=2)
+
+
 # ------------------------------------------------------------------ main ----
 def main():
     ap = argparse.ArgumentParser()
@@ -632,6 +708,8 @@ def main():
         "stats.svg": stats_card(data),
         "langs.svg": langs_card(data, keep_markup=args.keep_markup),
         "contrib.svg": contrib_card(data),
+        "products.svg": products_card(),
+        "skills.svg": skills_card(),
     }.items():
         path = os.path.join(args.out, name)
         with open(path, "w") as fh:
