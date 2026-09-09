@@ -30,6 +30,6 @@ I design systems end-to-end and ship the products I design. Prior research: exop
 
 <br />
 
-[Portfolio](http://shihub.online/) · [Shahriar Labs](https://shahriarlabs.com/) · [LinkedIn](https://linkedin.com/in/shihabshahrier/) · [X](https://x.com/_shihabShahriar) · [Email](mailto:shihab@shahriarlabs.com)
+[Portfolio](http://shihub.site/) · [Shahriar Labs](https://shahriarlabs.com/) · [LinkedIn](https://linkedin.com/in/shihabshahrier/) · [X](https://x.com/_shihabShahriar) · [Email](mailto:shihab@shahriarlabs.com)
 
 </div>
