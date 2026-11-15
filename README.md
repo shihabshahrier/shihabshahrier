@@ -1,10 +1,9 @@
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg">
-    <img src="assets/title-light.svg" width="760" alt="Title block of a research paper, typeset in LaTeX. Shihab Shahriar Antor, AI Engineer and Founder, Shahriar Labs, Dhaka, Bangladesh. Abstract: I design systems end to end and ship the products I design.">
-  </picture>
+  <img src="assets/title.svg" width="760" alt="Title block of a research paper that typesets itself letter by letter. Shihab Shahriar Antor, AI Engineer and Founder, Shahriar Labs, Dhaka, Bangladesh. Abstract: I design systems end to end and ship the products I design.">
   <br>
-  <sub>This header is LaTeX. The source is in <a href="paper/main.tex"><code>paper/main.tex</code></a>.</sub>
+  <sub>Received 22 January 2021 · Revised most days · Preprint, under continuous deployment</sub>
+  <br>
+  <sub>This header is LaTeX, and it compiles: <a href="paper/main.tex"><code>paper/main.tex</code></a></sub>
   <br><br>
   <a href="https://letx.app/open?repo=shihabshahrier/shihabshahrier&amp;path=paper"><img src="https://letx.app/badges/open-in-letx.svg" alt="Open in LetX"></a>
 </div>
@@ -16,6 +15,13 @@
 I design systems end to end and ship the products I design: Go and Python backends, TypeScript and React applications, AI agents, retrieval, and the cloud infrastructure under them.
 
 ## 1. Products
+
+<p align="center">
+  <img src="assets/fig-letx.svg" width="270" alt="Figure 1, animated: two authors type in one LaTeX source at the same time, then the page is typeset with the equation E = mc squared.">
+  <img src="assets/fig-offschool.svg" width="270" alt="Figure 2, animated: a pendulum swings and draws its own sine curve. Three steps light up in turn: predict, run, learn. The period formula appears at the end.">
+  <img src="assets/fig-callgate.svg" width="270" alt="Figure 3, animated: three tool calls leave an agent's script and meet a gate. One is allowed, one waits for approval, one is denied. Each is written to a journal.">
+</p>
+<p align="center"><sub><b>Fig. 1.</b> LetX: two authors, one source, one PDF. &nbsp; <b>Fig. 2.</b> offSchool: predict, run, learn. &nbsp; <b>Fig. 3.</b> callgate: allow, ask, deny, and write it all down.</sub></p>
 
 | Product | What it is | Status | Where |
 |:--|:--|:--|:--|
@@ -76,6 +82,12 @@ Write to [shihab@shahriarlabs.com](mailto:shihab@shahriarlabs.com), or start at 
 ## 5. Elsewhere
 
 [shihub.site](https://shihub.site/) (portfolio and journal) · [Shahriar Labs](https://shahriarlabs.com/shihab-shahriar-antor/) · [LinkedIn](https://www.linkedin.com/in/shihabshahrier/) · [X](https://x.com/_shihabShahriar) · [shihab@shahriarlabs.com](mailto:shihab@shahriarlabs.com)
+
+## Acknowledgements
+
+To Reviewer 2, for the character. To TeX Live, for still compiling at three in the morning. To everyone who filed a bug instead of leaving.
+
+**Competing interests.** The author founded the LaTeX editor he recommends.
 
 ## Cite
 

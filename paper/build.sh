@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
-# Typesets paper/main.tex twice (light and dark ink) and writes assets/title-{light,dark}.svg.
-# Needs pdflatex and pdftocairo (poppler). The README never depends on this running: the two
-# SVGs are committed, and every fact on the page is also plain text in README.md.
+# Typesets paper/main.tex and writes assets/title.svg, the header of the profile.
+# pdflatex sets the type, pdftocairo turns the page into glyph outlines, and animate.py gives the
+# outlines their theme colours and the order in which they appear.
+# Needs pdflatex, pdftocairo (poppler) and python3. The README never depends on this running:
+# the SVG is committed, and every fact on the page is also plain text in README.md.
 set -euo pipefail
 cd "$(dirname "$0")"
-out=../assets
-mkdir -p "$out" .build
-build() { # name ink accent muted
-  pdflatex -interaction=nonstopmode -halt-on-error -output-directory .build -jobname "title-$1" \
-    "\def\inkhex{$2}\def\accenthex{$3}\def\mutedhex{$4}\input{main.tex}" > .build/"$1".log
-  pdftocairo -svg .build/"title-$1".pdf "$out/title-$1.svg"
-}
-build light 1F2328 6D28D9 59636E
-build dark  E6EDF3 A78BFA 9198A1
-ls -la "$out"/title-*.svg
+mkdir -p .build ../assets
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory .build -jobname title main.tex > .build/title.log
+pdftocairo -svg .build/title.pdf .build/title.svg
+python3 animate.py

@@ -1,6 +1,6 @@
 % The header of github.com/shihabshahrier, typeset by TeX.
 %
-% Build:  ./paper/build.sh   (pdflatex, then pdftocairo -svg; one light copy and one dark copy)
+% Build:  ./paper/build.sh   (pdflatex, pdftocairo -svg, then animate.py orders the glyphs)
 % Open it in LetX:  https://letx.app/open?repo=shihabshahrier/shihabshahrier&path=paper
 \documentclass[border={4pt 8pt 4pt 8pt},varwidth=15.6cm]{standalone}
 \usepackage[T1]{fontenc}
@@ -8,7 +8,7 @@
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{graphicx}
-% build.sh sets these three on the command line, so one source gives both themes.
+% Three flat colours. animate.py maps them to CSS classes, so one SVG serves both themes.
 \providecommand{\inkhex}{1F2328}
 \providecommand{\accenthex}{6D28D9}
 \providecommand{\mutedhex}{59636E}
