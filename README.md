@@ -11,19 +11,19 @@
 
 # Shihab Shahriar Antor
 
-**AI engineer and founder of [Shahriar Labs](https://shahriarlabs.com/), an independent AI and software lab in Dhaka, Bangladesh.** I build [LetX](https://letx.app/), a real-time collaborative LaTeX editor with <!--letx:users-->11,300+<!--/letx:users--> registered users at <!--letx:institutions-->740+<!--/letx:institutions--> universities and research labs in <!--letx:countries-->75+<!--/letx:countries--> countries[^letx], and [offSchool](https://offschool.site/), simulation-first science learning for school students in Bangladesh. I also publish open-source tools for AI coding agents, including [freelm](https://github.com/shihabshahrier/freelm), a free LLM API client for Python and Node.js.
+**AI engineer and founder of [Shahriar Labs](https://shahriarlabs.com/), an independent AI and software lab in Dhaka, Bangladesh.** I build [LetX](https://letx.app/), a real-time collaborative LaTeX editor with <!--letx:users-->11,300+<!--/letx:users--> registered users at <!--letx:institutions-->740+<!--/letx:institutions--> universities and research labs in <!--letx:countries-->75+<!--/letx:countries--> countries[^letx], and [offSchool](https://offschool.site/), simulation-first science learning for school students in Bangladesh. I am now building callgate, a gate that checks, approves and records every tool call an AI agent makes. I also publish open-source tools for AI coding agents, including [freelm](https://github.com/shihabshahrier/freelm), a free LLM API client for Python and Node.js.
 
 I design systems end to end and ship the products I design: Go and Python backends, TypeScript and React applications, AI agents, retrieval, and the cloud infrastructure under them.
 
 ## 1. Products
 
-| Product | What it is | Where |
-|:--|:--|:--|
-| **[LetX](https://letx.app/)** | Real-time collaborative LaTeX editor in the browser, an Overleaf alternative. Cloud compilation on full TeX Live, <!--letx:templates-->1,000+<!--/letx:templates--> templates, unlimited collaborators, Lexi (an AI LaTeX agent that reads the real compile log) and a hosted MCP server for Claude and ChatGPT. | [letx.app](https://letx.app/) · [templates](https://letx.app/templates/) · [Lexi](https://letx.app/lexi/) · [MCP](https://letx.app/mcp/) · [live statistics](https://letx.app/stats/) |
-| **[offSchool](https://offschool.site/)** | Simulation-first learning for class 9 and 10 (SSC) students in Bangladesh, on the NCTB syllabus, in Bangla and English. A student predicts the answer, runs a simulation, then learns the idea. | [offschool.site](https://offschool.site/) |
-| **[QuantumSketch](https://quantumsketch.app/)** | Prompt-to-video research system: STEM explanations as ManimGL animations, generated from code. | [quantumsketch.app](https://quantumsketch.app/) · [lab notes](https://shahriarlabs.com/products/quantum-sketch/) |
-| **[Context Heavy](https://shahriarlabs.com/products/context-heavy/)** | Persistent memory for AI agents: a multi-tenant knowledge graph with hybrid vector, text and graph retrieval. | [lab notes](https://shahriarlabs.com/products/context-heavy/) · [benchmark](https://github.com/shihabshahrier/CH-Bench) |
-| **[Bagh](https://shahriarlabs.com/products/bagh-language/)** | A Bengali-first programming language with a browser IDE. | [lab notes](https://shahriarlabs.com/products/bagh-language/) |
+| Product | What it is | Status | Where |
+|:--|:--|:--|:--|
+| **[LetX](https://letx.app/)** | Real-time collaborative LaTeX editor in the browser, an Overleaf alternative. Cloud compilation on full TeX Live, <!--letx:templates-->1,000+<!--/letx:templates--> templates, unlimited collaborators, Lexi (an AI LaTeX agent that reads the real compile log) and a hosted MCP server for Claude and ChatGPT. | Live | [letx.app](https://letx.app/) · [templates](https://letx.app/templates/) · [Lexi](https://letx.app/lexi/) · [MCP](https://letx.app/mcp/) · [live statistics](https://letx.app/stats/) |
+| **[offSchool](https://offschool.site/)** | Simulation-first learning for class 9 and 10 (SSC) students in Bangladesh, on the NCTB syllabus, in Bangla and English. A student predicts the answer, runs a simulation, then learns the idea. | Live | [offschool.site](https://offschool.site/) |
+| **callgate** | A model-neutral MCP proxy and library, written in Rust. An AI agent writes one script that calls many MCP tools, and callgate checks every call against policy, asks for approval where it must, keeps credentials out of the sandbox and journals the run. | In development (pre-alpha) | Repository is private for now |
+| **[Context Heavy](https://shahriarlabs.com/products/context-heavy/)** | Persistent memory for AI agents: a multi-tenant knowledge graph with hybrid vector, text and graph retrieval. | Research system | [lab notes](https://shahriarlabs.com/products/context-heavy/) · [benchmark](https://github.com/shihabshahrier/CH-Bench) |
+| **[Bagh](https://shahriarlabs.com/products/bagh-language/)** | A Bengali-first programming language with a browser IDE. | Active lab project | [lab notes](https://shahriarlabs.com/products/bagh-language/) |
 
 LetX is listed in Claude's connector directory and in ChatGPT's plugin directory. Shahriar Labs is a member of NVIDIA Inception, and LetX is supported by the Google for Startups Cloud Program, AWS Activate and Anthropic's Claude Startups program.
 
@@ -62,13 +62,13 @@ My undergraduate thesis at BRAC University (November 2024, co-authored) detects 
 ## 4. Questions people ask
 
 **Who is Shihab Shahriar Antor?**
-An AI engineer from Dhaka, Bangladesh, and the founder of Shahriar Labs. He builds LetX, a collaborative LaTeX editor, and offSchool, a science learning site for Bangladeshi school students.
+An AI engineer from Dhaka, Bangladesh, and the founder of Shahriar Labs. He builds LetX, a collaborative LaTeX editor, and offSchool, a science learning site for Bangladeshi school students, and is developing callgate, a control layer for the tool calls AI agents make.
 
 **What is LetX?**
 LetX is an online LaTeX editor where several people write the same document at once and compile it in the cloud. It is an alternative to Overleaf with a free plan and unlimited collaborators; paid plans are listed at [letx.app/pricing](https://letx.app/pricing/).
 
 **What is Shahriar Labs?**
-An independent AI and software lab in Dhaka. Its two live products are LetX and offSchool; its research systems include QuantumSketch and Context Heavy. It lives at [shahriarlabs.com](https://shahriarlabs.com/).
+An independent AI and software lab in Dhaka. Its two live products are LetX and offSchool; its research work includes Context Heavy, a memory system for AI agents, and Bagh, a Bengali-first programming language. It lives at [shahriarlabs.com](https://shahriarlabs.com/).
 
 **How do I work with him?**
 Write to [shihab@shahriarlabs.com](mailto:shihab@shahriarlabs.com), or start at [shihub.site/hire](https://shihub.site/hire).
