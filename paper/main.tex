@@ -1,0 +1,46 @@
+% The header of github.com/shihabshahrier, typeset by TeX.
+%
+% Build:  ./paper/build.sh   (pdflatex, then pdftocairo -svg; one light copy and one dark copy)
+% Open it in LetX:  https://letx.app/open?repo=shihabshahrier/shihabshahrier&path=paper
+\documentclass[border={4pt 8pt 4pt 8pt},varwidth=15.6cm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+% build.sh sets these three on the command line, so one source gives both themes.
+\providecommand{\inkhex}{1F2328}
+\providecommand{\accenthex}{6D28D9}
+\providecommand{\mutedhex}{59636E}
+\definecolor{ink}{HTML}{\inkhex}
+\definecolor{accent}{HTML}{\accenthex}
+\definecolor{muted}{HTML}{\mutedhex}
+\begin{document}
+\color{ink}%
+% The stamp arXiv prints up the left margin of every preprint, borrowed for a profile.
+\begin{minipage}[c]{0.9cm}
+  \rotatebox{90}{\color{muted}\normalsize\ttfamily shihub.site\quad[cs.SE]\quad Dhaka, Bangladesh}
+\end{minipage}%
+\begin{minipage}[c]{14.6cm}\centering
+  {\fontsize{27}{31}\selectfont Shihab Shahriar Antor\par}
+  \vspace{0.6em}
+  {\large\scshape AI Engineer \& Founder\par}
+  \vspace{0.25em}
+  {\large Shahriar Labs, Dhaka, Bangladesh\par}
+  \vspace{0.3em}
+  {\normalsize\ttfamily\color{accent}shihab@shahriarlabs.com\par}
+  \vspace{0.9em}
+  {\color{accent}\rule{2.4cm}{0.7pt}\par}
+  \vspace{0.8em}
+  \begin{minipage}{12.2cm}\small
+    \centering{\bfseries Abstract}\par\vspace{0.4em}
+    \noindent\parbox{\linewidth}{I design systems end to end and ship the products I design.
+    This page lists what is live: LetX, a real-time collaborative \LaTeX{} editor used at
+    universities and research labs; offSchool, simulation-first science learning for school
+    students in Bangladesh; and open-source tools for AI coding agents.}\par
+    \vspace{0.7em}
+    \noindent\parbox{\linewidth}{{\bfseries Keywords:} collaborative editing, \LaTeX, AI agents,
+    Model Context Protocol, retrieval, Go, TypeScript, Python}
+  \end{minipage}
+\end{minipage}
+\end{document}
