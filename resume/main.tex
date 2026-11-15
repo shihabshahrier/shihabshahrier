@@ -1,0 +1,319 @@
+%% Master resume: Shihab Shahriar Antor
+%% Compile with pdfLaTeX (letX default). Single column, text-selectable, ATS-safe.
+%% Numbers are from https://letx.app/stats (verified 15 Nov 2026). Update them in one place:
+%% the \newcommand block right below.
+
+\documentclass[10pt,a4paper]{article}
+
+% ---------- numbers and links you will want to update ----------
+\newcommand{\lxUsers}{11,300+}
+\newcommand{\lxInstitutions}{750+}
+\newcommand{\lxCountries}{75+}
+\newcommand{\lxTemplates}{1,000+}
+\newcommand{\lxCompiles}{80,000}
+\newcommand{\lxAsOf}{Nov 2026}
+% Paste the BRAC University DSpace URL of the thesis between the braces.
+% Leave it empty and the link is simply not printed.
+\def\dspaceurl{}
+
+% ---------- packages ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{XCharter}
+\usepackage[scaled=0.92]{helvet}
+\usepackage[margin=0.62in,top=0.5in,bottom=0.5in]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+% Make every glyph map back to Unicode, so ATS parsers read the text correctly.
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+\definecolor{ink}{HTML}{1B1F24}
+\definecolor{accent}{HTML}{1F4E9C}
+\definecolor{muted}{HTML}{5A6270}
+
+\hypersetup{
+  pdftitle={Shihab Shahriar Antor - Resume},
+  pdfauthor={Shihab Shahriar Antor},
+  pdfsubject={Founder, Shahriar Labs. AI Systems Engineer and Product Builder},
+  pdfkeywords={Founder, AI Engineer, Go, Python, TypeScript, Distributed Systems, MCP, LaTeX, letX}
+}
+
+\color{ink}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\tabcolsep}{0pt}
+\linespread{1.04}
+
+% ---------- section style ----------
+\titleformat{\section}{\sffamily\bfseries\large\color{accent}}{}{0pt}{\MakeUppercase}[\vspace{-6pt}\color{accent!40}\rule{\linewidth}{0.6pt}]
+\titlespacing*{\section}{0pt}{7pt}{4pt}
+
+\setlist[itemize]{leftmargin=1.1em,itemsep=1.2pt,parsep=0pt,topsep=2pt,label={\color{accent}\textbullet}}
+
+% ---------- helpers ----------
+\newcommand{\lnk}[2]{\href{#1}{\color{accent}#2}}
+% \role{Title}{right-hand text}
+\newcommand{\role}[2]{%
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \sffamily\bfseries\normalsize #1 & \sffamily\small\color{muted} #2
+  \end{tabularx}\par}
+% \proj{Name}{what it is}{links on the right}
+\newcommand{\proj}[3]{%
+  \vspace{5pt}%
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    {\sffamily\bfseries #1}\,{\small\color{muted}\textbar\ #2} & \small #3
+  \end{tabularx}\par\vspace{-1pt}}
+\newcommand{\stack}[1]{{\small\color{muted}\textit{Stack:} #1}\par}
+\newcommand{\sep}{\unskip\enspace{\color{muted}\textbar}\enspace\ignorespaces}
+
+\begin{document}
+
+% ================= HEADER =================
+\begin{center}
+  {\sffamily\bfseries\fontsize{22}{24}\selectfont SHIHAB SHAHRIAR ANTOR}\par\vspace{4pt}
+  {\sffamily\color{accent}Founder, Shahriar Labs \sep AI Systems Engineer \sep Product Builder}\par\vspace{4pt}
+  {\small Dhaka, Bangladesh \sep +880 1644096025 \sep \lnk{mailto:shahrier2k@gmail.com}{shahrier2k@gmail.com}}\par\vspace{1pt}
+  {\small \lnk{https://shihub.site}{shihub.site} \sep
+    \lnk{https://shahriarlabs.com}{shahriarlabs.com} \sep
+    \lnk{https://letx.app}{letx.app} \sep
+    \lnk{https://github.com/shihabshahrier}{github.com/shihabshahrier} \sep
+    \lnk{https://linkedin.com/in/shihabshahrier}{linkedin.com/in/shihabshahrier}}
+\end{center}
+
+% ================= SUMMARY =================
+\section{Summary}
+Founder of \lnk{https://shahriarlabs.com}{Shahriar Labs}, an independent AI and software lab in Bangladesh.
+I take products from an idea to production end to end: product design, distributed systems, AI agents,
+cloud infrastructure, payments, security, and the distribution engine that brings people in.
+My flagship, \lnk{https://letx.app}{letX}, is a real-time collaborative LaTeX editor used by
+\textbf{\lxUsers{} people at \lxInstitutions{} universities and research labs in \lxCountries{} countries},
+grown with \textbf{zero paid advertising}. I work AI-native, with coding agents as a force multiplier,
+and publish the tooling I build for that as open source.
+Member of \textbf{NVIDIA Inception}; startup credits from the \textbf{Google for Startups Cloud Program} and \textbf{AWS Activate}.
+
+% ================= EXPERIENCE =================
+\section{Experience}
+\role{Shahriar Labs \textnormal{\sep Founder and Lead Engineer}}{Jan 2025 -- Present \sep Dhaka, Bangladesh}
+\vspace{-6pt}
+
+% ---- letX ----
+\proj{letX}{Real-time collaborative LaTeX editor, the Overleaf alternative}%
+  {\lnk{https://letx.app}{letx.app} \sep \lnk{https://letx.app/stats/}{live stats}}
+\begin{itemize}
+  \item Founded letX and wrote about \textbf{98\% of its 1,257 commits}, across product, backend, frontend, infrastructure
+        and operations. Launched \textbf{27 Jan 2026}; as of \lxAsOf{}:
+        \textbf{\lxUsers{} registered users}, \textbf{\lxInstitutions{} universities and labs}, \textbf{\lxCountries{} countries}
+        (counted from verified institutional email domains, not self-reported fields).
+  \item \textbf{Real-time collaboration:} Yjs CRDT editing over Go (Gin) WebSockets, with Redis pub/sub fan-out across
+        API instances. Document text and project state (PDF, presence) run in two separate CRDT rooms so neither can corrupt
+        the other. Unlimited collaborators on every plan.
+  \item \textbf{Compile farm:} SQS-queued workers on AWS Fargate running \texttt{latexmk} on full TeX Live (5,000+ packages),
+        per-project pdfLaTeX / XeLaTeX / LuaLaTeX, SyncTeX. A typical compile takes \textbf{about 6\,s end to end}
+        (2\,s median queue plus 3.7\,s median compile). Over \lxCompiles{} compiles in the last 30 days.
+  \item \textbf{Lexi, the in-editor AI agent} (\lnk{https://letx.app/lexi/}{letx.app/lexi}): reads the real compile log,
+        edits the source in place and rebuilds, instead of guessing from pasted errors. 19 commands
+        (\texttt{/fix}, \texttt{/table}, \texttt{/diagram}, \texttt{/image-to-tex}, \texttt{/pdf-to-tex}, \texttt{/slides}, \dots),
+        on Gemini via Vertex AI, metered per run against a monthly dollar cap on each plan.
+  \item \textbf{First-party hosted MCP server} (\lnk{https://letx.app/mcp/}{letx.app/mcp} \sep
+        \lnk{https://glama.ai/mcp/connectors/app.letx/letx}{listed on Glama}): self-hosted OAuth 2.1 and 13 tools, so Claude,
+        ChatGPT and Claude Code can search templates, edit projects and compile PDFs inside a user's account.
+  \item \textbf{\lxTemplates{} compile-tested templates} across 21 categories (102 university templates, 178 CVs, IEEE, Springer,
+        Nature, NeurIPS, NASA and NSF formats), produced by a template factory with a compile gate and a duplicate gate,
+        and open-sourced on \lnk{https://github.com/Shahriar-Labs/latex-templates}{GitHub}.
+  \item \textbf{Business layer:} paid and academic plans with LemonSqueezy billing, an entitlement service as the single source
+        of truth, academic-status verification with a vision model, two-way GitHub sync, and an interface in eight languages.
+        Features ship behind per-feature audiences (staff, then everyone) instead of a staging environment.
+  \item \textbf{Platform and security:} Go, pgx, sqlc, PostgreSQL 15 and Redis 7 on ECS Fargate (ap-south-1), React 18 +
+        CodeMirror 6 on Cloudflare Pages, Terraform, keyless GitHub Actions deploys through OIDC. Ran full-stack security
+        reviews and shipped the fixes: remote-code-execution and server-file-read paths closed, compile workers hardened
+        (process-group kill on deadline, argument-injection guard, restricted TeX file access).
+\end{itemize}
+
+% ---- letX growth + internal tools ----
+\proj{letX Growth Engine and Internal Tools}{Distribution and operations, built as software}{}
+\begin{itemize}
+  \item \textbf{Typefoundry, an automated film studio:} 113 short films and 171 platform cuts generated reproducibly from
+        source (cue sheets, Remotion compositions, a LuaLaTeX drawing engine, procedural music, synthesised voice-over)
+        with an automated quality-check harness. Also designed \textbf{Preamble}, a 32-lesson short-form LaTeX course for YouTube.
+  \item \textbf{Outreach engine:} a SQLite graph of institutions, researchers and papers for email outreach to research labs:
+        templates, a linter that blocks any unverified number, and replies threaded in one conversation. A person sends every email.
+  \item \textbf{Search and AI-answer-engine optimisation:} prerendered pages, structured data, \texttt{llms.txt},
+        \lnk{https://letx.app/learn/problems/}{51 answer-first LaTeX guides}, sourced comparison pages and
+        \lnk{https://letx.app/tools/}{free browser tools}, so letX is found and cited by search engines and AI assistants.
+  \item \textbf{Running the company from an AI assistant:} a private operations MCP connector (22 tools: analytics, billing,
+        compile queue, email, academic reviews, account recovery), an admin console, a production release test that runs
+        end-to-end suites on throwaway accounts, and a script that re-verifies every public number from production data.
+\end{itemize}
+
+% ---- QuantumSketch ----
+\proj{QuantumSketch}{Prompt-to-video engine for STEM explainers}%
+  {2025 to 2026, closed}
+\begin{itemize}
+  \item Turned one prompt into a narrated ManimGL animation. A Go API handed each job to Python workers for AI reasoning
+        and rendering through \textbf{Temporal} durable workflows.
+  \item Crash-resilient rendering: Temporal retried failed steps and resumed a workflow after a worker died, so multi-minute
+        renders finished without manual recovery.
+  \item A planning pass with validated scene specs caught hallucinated visuals before any frame was drawn; worked across
+        OpenAI, Anthropic and Google models. Terraform (AWS) and Docker infrastructure. Closed in November 2026 to
+        put the lab's time into letX and offSchool.
+\end{itemize}
+
+% ---- Context Heavy ----
+\proj{Context Heavy}{Persistent memory for AI agents \textit{(private repository)}}%
+  {\lnk{https://github.com/shihabshahrier/CH-Bench}{CH-Bench (public)}}
+\begin{itemize}
+  \item Multi-tenant knowledge-graph API that stores what agents learn about people, codebases and systems and serves it back
+        through hybrid retrieval: graph traversal (recursive CTEs) plus pgvector semantic search. Go 1.25 + Gin,
+        PostgreSQL 16, Redis 7, workspace-scoped API keys and JWT, React dashboard with a graph viewer.
+  \item Terraform modules for networking, ECR, RDS, ElastiCache, ECS Fargate and secrets; CI/CD through GitHub Actions OIDC
+        with no long-lived AWS keys.
+  \item Built \textbf{CH-Bench} to measure it honestly: a zero-dependency Python harness scoring a memory system on recall@k,
+        MRR and nDCG plus an LLM judge for correctness, groundedness and abstention. Runs LongMemEval, LoCoMo and a custom
+        suite of long-horizon recall questions; any system plugs in through a four-method adapter.
+\end{itemize}
+
+% ---- offSchool ----
+\proj{offSchool}{Simulation-first learning for Bangladeshi students \textit{(in development)}}{}
+\begin{itemize}
+  \item Students meet a real problem, predict, experiment in a simulation, and only then learn the concept. Scoped to SSC
+        Physics, Chemistry, Biology, Higher Math and ICT: \textbf{60 chapters, 656 topics}, in Bangla and English.
+  \item Monorepo: Next.js web (S3 + CloudFront), Expo app for Android, iPhone and iPad, a pure-TypeScript simulation engine
+        with a declarative SimSpec runtime, JSON-Schema-validated curriculum, and a Go API with a River background worker.
+\end{itemize}
+
+% ---- ComiKola ----
+\proj{ComiKola}{AI comic and webtoon creation platform}{}
+\begin{itemize}
+  \item A studio for series creators: world-building, a character studio that generates reference portraits to keep characters
+        consistent, an AI scriptwriter (Gemini) that turns a synopsis into a panel-by-panel script, and an editable storyboard.
+        Go and Python services, Next.js and React frontends, PostgreSQL, Docker. Prototyped a Flutter spin-off for bedtime comics.
+\end{itemize}
+
+% ---- BikroyBuddy ----
+\proj{BikroyBuddy}{AI assistant for social-commerce sellers \textit{(2025, retired)}}{}
+\begin{itemize}
+  \item Platform for Bangladeshi sellers who trade on Facebook, Instagram and WhatsApp: a Go API (Gin, GORM, PostgreSQL, Redis,
+        JWT) modelling products, orders, customers, social-channel webhooks and an audit log of AI replies, and a Next.js seller
+        dashboard for orders and inventory.
+\end{itemize}
+
+% ---- Bagh ----
+\proj{Bagh}{A Bangla-first programming language and cloud IDE}%
+  {\lnk{https://github.com/shihabshahrier/bagh-online}{bagh-online}}
+\begin{itemize}
+  \item \textbf{Bagh Lang:} a bilingual (Bangla + phonetic Latin) language for children that translates to Python at runtime,
+        with Bangla numerals, Bangla standard-library aliases, syntax checking, a REPL, a packaged CLI and a kid-friendly desktop IDE.
+  \item \textbf{Bagh Online:} a Bangla-first learning platform (React, Vite, FastAPI) with story-driven lessons, auto-tested
+        coding challenges, a sandbox (process isolation, timeouts, import allow-listing) and a Gemini copilot that answers in Bangla.
+\end{itemize}
+
+% ================= OPEN SOURCE =================
+\section{Open Source}
+\begin{itemize}
+  \item \lnk{https://github.com/shihabshahrier/freelm}{\textbf{freelm}}
+        (\lnk{https://pypi.org/project/freelm/}{PyPI} \sep \lnk{https://shihub.site/freelm}{docs}):
+        a free, always-up LLM client and gateway for Python and TypeScript. One OpenAI-compatible API over six free tiers
+        (OpenRouter, Gemini, NVIDIA NIM, Groq, Cerebras, Mistral) with automatic failover, key rotation and streaming.
+  \item \textbf{Agent skills for Claude Code and other coding agents:}
+        \lnk{https://github.com/shihabshahrier/latex-engineer}{latex-engineer},
+        \lnk{https://github.com/shihabshahrier/manim-coding-skill}{manim-coding-skill},
+        \lnk{https://github.com/shihabshahrier/Godot-Skill}{Godot-Skill},
+        \lnk{https://github.com/shihabshahrier/seo-master-skill}{seo-master},
+        \lnk{https://github.com/shihabshahrier/skill-builder}{skill-builder},
+        \lnk{https://github.com/shihabshahrier/common-knowledge}{common-knowledge},
+        \lnk{https://github.com/shihabshahrier/clean-my-mac}{clean-my-mac},
+        \lnk{https://github.com/shihabshahrier/openrouter-free-infer}{openrouter-free-infer},
+        \lnk{https://github.com/shihabshahrier/claude-antigravity-orchestrator}{claude-antigravity-orchestrator}
+        (one agent orchestrates, another does the legwork on a separate quota).
+  \item \lnk{https://github.com/shihabshahrier/wireguard-anywhere}{\textbf{wireguard-anywhere}}: your own WireGuard VPN on
+        AWS, GCP or Azure with one command, multi-region and self-hosted.
+  \item \lnk{https://github.com/shihabshahrier/softco}{\textbf{softco}}: an agent skill that runs a coding agent through a
+        full software lifecycle (discovery, design, docs, code, test, infrastructure, deploy) with tests written first, an
+        80\% coverage gate and an \texttt{AGENT.md} hand-off contract. Works in Claude Code, Codex, Cursor and opencode.
+  \item \lnk{https://github.com/Shahriar-Labs/latex-templates}{\textbf{latex-templates}} and eight standalone journal and
+        proposal templates (REVTeX, AASTeX, MNRAS, AIAA, NASA ROSES, telescope proposals, Beamer, resume).
+  \item \lnk{https://github.com/shihabshahrier/claude-code-promo-video}{\textbf{claude-code-promo-video}}: a 30-second
+        product film made by prompting: animation from Claude, voice-over from a local TTS model, music and sound effects
+        synthesised in NumPy. No paid APIs, every prompt included.
+\end{itemize}
+
+% ================= SELECTED PROJECTS =================
+\section{Selected Projects}
+\begin{itemize}
+  \item \textbf{SimAWS} \textit{(private)}: learn AWS by running it. A deterministic simulation of the AWS control plane
+        under a faithful console clone (Cloudscape), with tasks that validate the account you actually built. Runs fully
+        in the browser: no AWS account, no cost.
+  \item \lnk{https://github.com/shihabshahrier/ChessGoddess}{\textbf{ChessLens}}: chess review studio that turns Stockfish
+        output into plain-English coaching through an LLM (OpenRouter). Go (Gin) API with a Stockfish manager, React front end,
+        Redis queue locally and SQS in production, Terraform for AWS Fargate and Aurora.
+  \item \lnk{https://github.com/shihabshahrier/iptv-platform}{\textbf{World Cup 2026 streaming}}: browse and watch
+        free-to-air channels from broadcasters worldwide. Next.js, Cloudflare Workers, Neon Postgres.
+  \item \lnk{https://github.com/shihabshahrier/growth-monitor}{\textbf{GrowthMonitor}}: multi-tenant CRM and analytics for
+        SMEs with a natural-language analyst. React, Express (JWT, Prisma), and a Python AI worker (FastAPI, LangGraph, Gemini,
+        Redis); role-based access and CSV import.
+  \item \lnk{https://github.com/shihabshahrier/TapNOrder}{\textbf{TapNOrder}}: QR-code table ordering for restaurants.
+        FastAPI backend with an order-status lifecycle that messages the guest on WhatsApp (Cloud API) at every change,
+        and a Next.js staff dashboard. Docker.
+  \item \lnk{https://github.com/shihabshahrier/TryOn-POC}{\textbf{TryOn}}: virtual try-on from a user photo and a product
+        image with Gemini 2.5 Flash Image. Next.js 14, FastAPI, SQLite, Pydantic-typed API.
+  \item \lnk{https://github.com/shihabshahrier/CompileX}{\textbf{CompileX}}: browser IDE with a file tree, editor and live
+        terminal streamed over Socket.IO from node-pty. React, Node.js.
+  \item \lnk{https://github.com/shihabshahrier/EasyEdu}{\textbf{EasyEdu}}: university management system with advising,
+        course materials, quizzes, grades, course evaluations, semester-fee payment through Stripe, and CSV bulk import. Django.
+  \item \lnk{https://github.com/shihabshahrier/ConvenientPurse}{\textbf{Convenience Purse}}: Flutter storefront for digital
+        art with catalogue, categories, item details, cart and profiles (GetX). University course project.
+\end{itemize}
+
+% ================= RESEARCH =================
+\section{Research}
+\textbf{Synergistic Application of Machine Learning and Computer Vision for the Detection of Exoplanets and Stars}
+\ifx\dspaceurl\empty\else\ \sep \lnk{\dspaceurl}{BRAC University DSpace}\fi\par
+{\small\color{muted}BRAC University}
+\begin{itemize}
+  \item Contrastive learning (SimCLR, Siamese networks) on direct-imaging telescope data: \textbf{92\% precision and 89\% recall}
+        on the test set for exoplanet detection. Preprocessing and feature engineering to separate faint signal from
+        instrument noise.
+\end{itemize}
+
+% ================= SKILLS =================
+\section{Skills}
+\begin{tabularx}{\linewidth}{@{}l@{\hspace{8pt}}X@{}}
+  \textbf{Languages}     & Go, Python, TypeScript / JavaScript, SQL, Dart, C, C\texttt{++}, C\#, LaTeX \\
+  \textbf{Backend}       & Gin, FastAPI, Django, Node / Express, REST, GraphQL, WebSockets, Temporal, River \\
+  \textbf{Frontend}      & React, Next.js, Vite, CodeMirror 6, Yjs (CRDT), Three.js / React Three Fiber, Tailwind, Expo, Flutter \\
+  \textbf{AI}            & LLM agents and tool use, MCP servers and OAuth 2.1, RAG and hybrid retrieval, pgvector, LangGraph, LangChain,
+                           evaluation harnesses, Vertex AI, OpenRouter, contrastive learning (SimCLR) \\
+  \textbf{Data}          & PostgreSQL (pgx, sqlc, pgvector), Redis, SQLite, MySQL \\
+  \textbf{Cloud and ops} & AWS (ECS Fargate, EC2, S3, RDS, ElastiCache, SQS, SSM, IAM), GCP, Azure, Cloudflare (Pages, Workers),
+                           Terraform, Docker, GitHub Actions (OIDC), CloudWatch \\
+  \textbf{Growth}        & SEO and AI-answer-engine optimisation, structured data, programmatic content, email outreach,
+                           analytics (Search Console, Bing Webmaster) \\
+  \textbf{Creative}      & Programmatic video (Remotion, ManimGL), CapCut, Photoshop, Illustrator, Canva,
+                           AI video tools (Veo, Kling, Runway, Higgsfield) \\
+\end{tabularx}
+
+% ================= EDUCATION =================
+\section{Education}
+\textbf{BRAC University}, Dhaka \sep Computer Science\par
+{\small Coursework: Artificial Intelligence, Machine Learning, Data Science, Algorithms and Data Structures, Database Systems,
+System Design, Operating Systems, Compiler Design.}
+
+% ================= LEADERSHIP =================
+\section{Leadership}
+\begin{itemize}
+  \item \textbf{Creative Director, Atharo:} led a community sustainability campaign of about 300 participants, owning the
+        visual identity and campaign strategy.
+  \item \textbf{Executive, BRACU Entrepreneurship Forum:} ran strategy and startup-case workshops and mentored junior teams.
+\end{itemize}
+
+% ================= LANGUAGES =================
+\section{Languages}
+Bengali (native) \sep English (fluent) \sep Hindi (conversational)
+
+\end{document}

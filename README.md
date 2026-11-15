@@ -81,7 +81,7 @@ Write to [shihab@shahriarlabs.com](mailto:shihab@shahriarlabs.com), or start at 
 
 ## 5. Elsewhere
 
-[shihub.site](https://shihub.site/) (portfolio and journal) · [Shahriar Labs](https://shahriarlabs.com/shihab-shahriar-antor/) · [LinkedIn](https://www.linkedin.com/in/shihabshahrier/) · [X](https://x.com/_shihabShahriar) · [shihab@shahriarlabs.com](mailto:shihab@shahriarlabs.com)
+[shihub.site](https://shihub.site/) (portfolio and journal) · [Resume (PDF)](https://shihub.site/Shihab-Shahriar-Antor-Resume.pdf), or [open its LaTeX source in LetX](https://letx.app/open?repo=shihabshahrier/shihabshahrier&path=resume) · [Shahriar Labs](https://shahriarlabs.com/shihab-shahriar-antor/) · [LinkedIn](https://www.linkedin.com/in/shihabshahrier/) · [X](https://x.com/_shihabShahriar) · [shihab@shahriarlabs.com](mailto:shihab@shahriarlabs.com)
 
 ## Acknowledgements
 
