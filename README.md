@@ -10,7 +10,7 @@
 
 # Shihab Shahriar Antor
 
-**AI engineer and founder of [Shahriar Labs](https://shahriarlabs.com/), an independent AI and software lab in Dhaka, Bangladesh.** I build [LetX](https://letx.app/), a real-time collaborative LaTeX editor with <!--letx:users-->11,300+<!--/letx:users--> registered users at <!--letx:institutions-->740+<!--/letx:institutions--> universities and research labs in <!--letx:countries-->75+<!--/letx:countries--> countries[^letx], and [offSchool](https://offschool.site/), simulation-first science learning for school students in Bangladesh. I am now building callgate, a gate that checks, approves and records every tool call an AI agent makes. I also publish open-source tools for AI coding agents, including [freelm](https://github.com/shihabshahrier/freelm), a free LLM API client for Python and Node.js.
+**AI engineer and founder of [Shahriar Labs](https://shahriarlabs.com/), an independent AI and software lab in Dhaka, Bangladesh.** I build [LetX](https://letx.app/), a real-time collaborative LaTeX editor with <!--letx:users-->11,500+<!--/letx:users--> registered users at <!--letx:institutions-->750+<!--/letx:institutions--> universities and research labs in <!--letx:countries-->75+<!--/letx:countries--> countries[^letx], and [offSchool](https://offschool.site/), simulation-first science learning for school students in Bangladesh. I am now building callgate, a gate that checks, approves and records every tool call an AI agent makes. I also publish open-source tools for AI coding agents, including [freelm](https://github.com/shihabshahrier/freelm), a free LLM API client for Python and Node.js.
 
 I design systems end to end and ship the products I design: Go and Python backends, TypeScript and React applications, AI agents, retrieval, and the cloud infrastructure under them.
 
@@ -102,6 +102,6 @@ To Reviewer 2, for the character. To TeX Live, for still compiling at three in t
 }
 ```
 
-[^letx]: Counted by LetX itself and published at [letx.app/stats](https://letx.app/stats/). Universities and research labs are counted from verified academic email domains. Figures on this page were last read on <!--letx:date-->15 November 2026<!--/letx:date--> and are rounded down.
+[^letx]: Counted by LetX itself and published at [letx.app/stats](https://letx.app/stats/). Universities and research labs are counted from verified academic email domains. Figures on this page were last read on <!--letx:date-->16 November 2026<!--/letx:date--> and are rounded down.
 [^freelm]: Packages: [freelm on PyPI](https://pypi.org/project/freelm/) and [freelm on npm](https://www.npmjs.com/package/freelm). Documentation: [shahriarlabs.com/products/freelm](https://shahriarlabs.com/products/freelm/).
 [^thesis]: "Synergistic application of advanced machine learning and computer vision techniques for the detection of exoplanet and star: leveraging contrastive learning in astronomical imagery", BRAC University, 2024. Record: [hdl.handle.net/10361/25223](http://hdl.handle.net/10361/25223).
